@@ -1,0 +1,40 @@
+{
+  "name": "@shelby-protocol/table-generator",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Automatically generates and maintains the applications table in README.md",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "update-apps-table": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "lint": "biome check .",
+    "fmt": "biome check . --write",
+    "test:once": "echo 'No tests configured'",
+    "update-table": "tsx src/cli.ts",
+    "check-table": "tsx src/cli.ts --check"
+  },
+  "dependencies": {
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "5.8.2"
+  },
+  "keywords": [
+    "monorepo",
+    "documentation",
+    "automation",
+    "table-generation"
+  ]
+}

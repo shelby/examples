@@ -24,6 +24,9 @@ jobs:
       - name: Setup Node and pnpm
         uses: ./.github/actions/setup-node
 
+      - name: Check Apps Table
+        run: pnpm check-table
+
       - name: Lint
         run: pnpm lint
 
