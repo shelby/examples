@@ -1,0 +1,24 @@
+# JavaScript / TypeScript
+node_modules
+.DS_Store
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+.env
+
+# Rust
+target
+
+# Build Outputs
+.next/
+out/
+build
+dist
+.vercel
+.turbo
+
+*storybook.log
+storybook-static
+
+# AI
+.claude

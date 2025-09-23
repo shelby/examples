@@ -1,0 +1,24 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "fmt": {
+      "dependsOn": ["^fmt"]
+    },
+    "generate": {
+      "dependsOn": ["^generate"],
+      "outputs": [".next/types/**", "src/gen/**"]
+    },
+    "build": {
+      "dependsOn": ["^build", "generate"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "test:once": {
+      "dependsOn": ["^test:once"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"]
+    }
+  }
+}

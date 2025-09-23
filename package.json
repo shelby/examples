@@ -1,0 +1,32 @@
+{
+  "name": "@shelby-protocol/examples",
+  "private": true,
+  "scripts": {
+    "lint": "turbo run lint",
+    "fmt": "turbo run fmt",
+    "build": "turbo run build",
+    "test:once": "turbo run test:once",
+    "generate": "turbo run generate"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.0.6",
+    "@types/node": "^22.15.17",
+    "turbo": "^2.5.3",
+    "typescript": "5.8.2"
+  },
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "keyv": "npm:@keyvhq/core@~1.6.26"
+    },
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "@tailwindcss/oxide",
+      "esbuild",
+      "sharp"
+    ]
+  }
+}
