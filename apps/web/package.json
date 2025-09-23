@@ -7,8 +7,8 @@
     "dev": "next dev --turbopack --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "biome lint .",
-    "fmt": "biome format --write .",
+    "lint": "biome check .",
+    "fmt": "biome check . --write",
     "test:once": "echo 'No tests configured'"
   },
   "dependencies": {

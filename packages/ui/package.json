@@ -6,8 +6,8 @@
     "./*": "./src/*.tsx"
   },
   "scripts": {
-    "lint": "biome lint .",
-    "fmt": "biome format --write .",
+    "lint": "biome check .",
+    "fmt": "biome check . --write",
     "test:once": "echo 'No tests configured'"
   },
   "devDependencies": {
