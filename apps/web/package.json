@@ -1,6 +1,7 @@
 {
   "name": "@shelby-protocol/web",
   "version": "0.1.0",
+  "description": "A Next.js application showcasing Shelby integrations",
   "type": "module",
   "private": true,
   "scripts": {

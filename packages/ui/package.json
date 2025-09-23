@@ -1,6 +1,7 @@
 {
   "name": "@shelby-protocol/ui",
   "version": "0.0.0",
+  "description": "A React component library shared across applications",
   "private": true,
   "exports": {
     "./*": "./src/*.tsx"

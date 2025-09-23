@@ -6,7 +6,9 @@
     "fmt": "turbo run fmt",
     "build": "turbo run build",
     "test:once": "turbo run test:once",
-    "generate": "turbo run generate"
+    "generate": "turbo run generate",
+    "update-table": "pnpm --filter @shelby-protocol/table-generator update-table",
+    "check-table": "pnpm --filter @shelby-protocol/table-generator check-table"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
