@@ -1,135 +1,115 @@
-# Turborepo starter
+# Shelby Protocol Examples
 
-This Turborepo starter is maintained by the Turborepo core team.
+<div align="center">
+  <img src="https://avatars.githubusercontent.com/u/219037914?s=96&v=4" alt="Shelby Protocol Logo" width="96" height="96">
+</div>
 
-## Using this example
+A collection of examples demonstrating various features and capabilities of the Shelby Protocol ecosystem. This repository is modeled after [Vercel's examples repository](https://github.com/vercel/examples) and serves as a comprehensive resource for developers building with Shelby Protocol.
 
-Run the following command:
+## About Shelby Protocol
 
-```sh
-npx create-turbo@latest
-```
+Shelby Protocol is a decentralized infrastructure platform designed to simplify the development and deployment of distributed applications. Learn more about us:
 
-## What's inside?
+- 🌐 **Website**: [shelby.xyz](https://shelby.xyz/)
+- 📚 **Documentation**: [docs.shelby.xyz](https://docs.shelby.xyz/)
+- 🐙 **GitHub**: [github.com/shelby](https://github.com/shelby)
+- 🐦 **Twitter**: [@shelbyserves](https://x.com/shelbyserves)
 
-This Turborepo includes the following packages/apps:
+## What's Inside
+
+This Turborepo includes the following packages and applications:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@shelby-protocol/web`: A [Next.js](https://nextjs.org/) application showcasing Shelby Protocol integrations
+- `@shelby-protocol/ui`: A React component library shared across applications
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/) and follows Shelby Protocol's development standards.
 
-### Utilities
+### Development Tools
 
-This Turborepo has some additional tools already setup for you:
+This repository comes pre-configured with:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- [Biome](https://biomejs.dev/) for code formatting and linting
+- [Turborepo](https://turborepo.com/) for efficient monorepo management
+- [pnpm](https://pnpm.io/) for fast, efficient package management
 
-### Build
+## Getting Started
 
-To build all apps and packages, run the following command:
+### Prerequisites
 
-```
-cd my-turborepo
+- Node.js >= 22.15.0
+- pnpm >= 10.10.0
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+### Installation
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+1. Clone the repository:
+```bash
+git clone https://github.com/shelby/examples.git
+cd examples
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+2. Install dependencies:
+```bash
+pnpm install
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### Development
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+To develop all apps and packages:
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+```bash
+pnpm dev
 ```
 
-### Remote Caching
+To develop a specific package:
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```bash
+# Develop the web application
+pnpm dev --filter=@shelby-protocol/web
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Building
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+To build all apps and packages:
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+pnpm build
 ```
 
-## Useful Links
+To build a specific package:
 
-Learn more about the power of Turborepo:
+```bash
+# Build the web application
+pnpm build --filter=@shelby-protocol/web
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+### Code Quality
+
+Format code:
+```bash
+pnpm fmt
+```
+
+Lint code:
+```bash
+pnpm lint
+```
+
+Run tests:
+```bash
+pnpm test:once
+```
+
+## Contributing
+
+We welcome contributions to the Shelby Protocol examples repository! Please read our contributing guidelines and feel free to submit issues and pull requests.
+
+## License
+
+This repository is open source and available under the [MIT License](LICENSE).
+
+---
+
+Built with ❤️ by the [Shelby Protocol team](https://github.com/shelby)

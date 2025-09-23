@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "@shelby-protocol/ui",
   "version": "0.0.0",
   "private": true,
   "exports": {

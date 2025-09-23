@@ -26,7 +26,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@repo/ui':
+      '@shelby-protocol/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       next:

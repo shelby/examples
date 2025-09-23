@@ -1,5 +1,5 @@
 {
-  "name": "turborepo",
+  "name": "@shelby-protocol/examples",
   "private": true,
   "scripts": {
     "lint": "turbo run lint",

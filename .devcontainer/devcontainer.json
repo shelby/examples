@@ -1,0 +1,26 @@
+{
+  "name": "Shelby Protocol Examples",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/pnpm:2": {
+      "version": "10.10.0"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "biomejs.biome",
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-json"
+      ],
+      "settings": {
+        "typescript.preferences.quoteStyle": "double",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "biomejs.biome"
+      }
+    }
+  },
+  "postCreateCommand": "pnpm install",
+  "remoteUser": "node"
+}
