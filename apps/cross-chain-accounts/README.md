@@ -2,6 +2,12 @@
 
 This example demonstrates how one can upload and view files using cross-chain (non-Aptos) wallets on the Shelby network.
 
+### Prerequisites
+
+- `node` and `pnpm`
+- Shelby API key. For best performance, you are encouraged to generate an API Key so your app will not hit the rate limit.
+  - Head to [Geomi](https://geomi.dev/) to generate an API key for `shelbydevnet` and add it to the `.env` file as `NEXT_PUBLIC_SHELBY_API_KEY=<my-api-key>`
+
 ### Starting the Demo dApp
 
 ```bash
@@ -40,6 +46,8 @@ export const encodeFile = async (file: File): Promise<BlobCommitments> => {
 ```
 
 #### Register the file on chain (transaction submission)
+
+> Note: To upload a file to the Shelby network, the account should hold PROTO tokens (1 PROTO for 1 upload). Make sure to fund your account by going to https://docs.shelby.xyz/docs/faucet
 
 After we have the commitment hashes of the file, we can register the file on chain by submitting a transaction.
 
@@ -137,7 +145,7 @@ await getShelbyClient().rpc.putBlob({
 
 ### View the account's uploaded files
 
-To view the files uploaded by an account, we can simply query for the blobs
+To view the files uploaded by an account, we can simply query for the blobs.
 
 ```ts
 const getBlobs = async (): Promise<BlobMetadata[]> => {
