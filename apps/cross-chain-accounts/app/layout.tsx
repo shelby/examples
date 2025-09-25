@@ -1,5 +1,5 @@
-import localFont from "next/font/local";
 import { Toaster } from "@shelby-protocol/ui/components";
+import localFont from "next/font/local";
 import { WalletProvider } from "@/components/WalletProvider";
 import "./globals.css";
 

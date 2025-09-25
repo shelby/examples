@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Header } from "@/components/Header";
-import { FileUpload } from "@/components/FileUpload";
 import { AccountBlobs } from "@/components/AccountBlobs";
+import { FileUpload } from "@/components/FileUpload";
+import { Header } from "@/components/Header";
 
 export default function Home() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);

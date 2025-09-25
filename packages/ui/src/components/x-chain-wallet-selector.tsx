@@ -22,7 +22,9 @@ import {
   IconLogout,
   IconPerson,
 } from "@intentui/icons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { cn } from "@shelby-protocol/ui/lib/utils";
+import { ChevronDown } from "lucide-react";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "./button";
@@ -47,8 +49,6 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { ExpandingContainer } from "./expanding-container";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { ChevronDown } from "lucide-react";
 
 export interface XChainWalletSelectorProps {
   walletSortingOptions?: WalletSortingOptions;
@@ -142,7 +142,7 @@ function ConnectWalletDialog({
   const { aptosConnectWallets, availableWallets, installableWallets } =
     groupAndSortWallets(
       [...wallets, ...notDetectedWallets],
-      walletSortingOptions
+      walletSortingOptions,
     );
 
   const hasAptosConnectWallets = !!aptosConnectWallets.length;
@@ -162,7 +162,7 @@ function ConnectWalletDialog({
       }
       return acc;
     },
-    { evmWallets: [], solanaWallets: [], aptosWallets: [] }
+    { evmWallets: [], solanaWallets: [], aptosWallets: [] },
   );
 
   const {
@@ -188,7 +188,7 @@ function ConnectWalletDialog({
       evmInstallableWallets: [],
       solanaInstallableWallets: [],
       aptosInstallableWallets: [],
-    }
+    },
   );
 
   return (

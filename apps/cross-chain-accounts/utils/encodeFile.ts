@@ -1,5 +1,5 @@
 import {
-  BlobCommitments,
+  type BlobCommitments,
   generateCommitments,
 } from "@shelby-protocol/sdk/node";
 

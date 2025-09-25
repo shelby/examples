@@ -1,8 +1,7 @@
-import Link from "next/link";
-import { useState } from "react";
-import { useEffect } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { BlobMetadata } from "@shelby-protocol/sdk/browser";
+import type { BlobMetadata } from "@shelby-protocol/sdk/browser";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { getShelbyClient } from "@/utils/client";
 
 interface AccountBlobsProps {
@@ -25,7 +24,10 @@ export const AccountBlobs = ({ refreshTrigger }: AccountBlobsProps) => {
       return blobs;
     };
 
-    getBlobs().then((blobs) => setBlobs(blobs));
+    getBlobs().then((blobs) => {
+      setBlobs(blobs);
+      refreshTrigger;
+    });
   }, [account, refreshTrigger]);
 
   return (

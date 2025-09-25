@@ -1,18 +1,18 @@
-import { useState, useCallback } from "react";
-import {
-  InputTransactionData,
-  useWallet,
-} from "@aptos-labs/wallet-adapter-react";
-import {
-  BlobCommitments,
-  ShelbyBlobClient,
-} from "@shelby-protocol/sdk/browser";
 import {
   Account,
   Ed25519PrivateKey,
   PrivateKey,
   PrivateKeyVariants,
 } from "@aptos-labs/ts-sdk";
+import {
+  type InputTransactionData,
+  useWallet,
+} from "@aptos-labs/wallet-adapter-react";
+import {
+  type BlobCommitments,
+  ShelbyBlobClient,
+} from "@shelby-protocol/sdk/browser";
+import { useCallback, useState } from "react";
 import { getShelbyClient } from "@/utils/client";
 
 interface UseSubmitFileToChainReturn {
@@ -42,7 +42,7 @@ export const useSubmitFileToChain = (): UseSubmitFileToChainReturn => {
           blobName: file.name,
           blobMerkleRoot: commitment.blob_merkle_root,
           chunksetChunkCommitments: commitment.chunkset_commitments.map(
-            (chunkset) => chunkset.chunk_commitments
+            (chunkset) => chunkset.chunk_commitments,
           ),
           expirationMicros: (1000 * 60 * 60 * 24 * 30 + Date.now()) * 1000, // 30 days from now in microseconds
           size: commitment.raw_data_size,
@@ -52,9 +52,8 @@ export const useSubmitFileToChain = (): UseSubmitFileToChainReturn => {
           const transaction: InputTransactionData = {
             data: payload,
           };
-          const transactionSubmitted = await signAndSubmitTransaction(
-            transaction
-          );
+          const transactionSubmitted =
+            await signAndSubmitTransaction(transaction);
 
           await getShelbyClient().aptos.waitForTransaction({
             transactionHash: transactionSubmitted.hash,
@@ -64,8 +63,8 @@ export const useSubmitFileToChain = (): UseSubmitFileToChainReturn => {
           const privateKey = new Ed25519PrivateKey(
             PrivateKey.formatPrivateKey(
               process.env.NEXT_PUBLIC_SPONSOR_PRIVATE_KEY as string,
-              PrivateKeyVariants.Ed25519
-            )
+              PrivateKeyVariants.Ed25519,
+            ),
           );
           const sponsorAccount = Account.fromPrivateKey({ privateKey });
 
@@ -106,7 +105,7 @@ export const useSubmitFileToChain = (): UseSubmitFileToChainReturn => {
         setIsSubmitting(false);
       }
     },
-    [account, wallet, signAndSubmitTransaction, signTransaction]
+    [account, wallet, signAndSubmitTransaction, signTransaction],
   );
 
   return {

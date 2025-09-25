@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Button } from "@shelby-protocol/ui/components/button";
+import { useState } from "react";
 import { useSubmitFileToChain } from "@/hooks/useSubmitFileToChain";
 import { useUploadFile } from "@/hooks/useUploadFile";
 import { encodeFile } from "@/utils/encodeFile";

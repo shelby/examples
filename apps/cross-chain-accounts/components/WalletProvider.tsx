@@ -1,10 +1,10 @@
 "use client";
 
-import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
-import { PropsWithChildren } from "react";
-import { Network } from "@aptos-labs/ts-sdk";
-import { setupAutomaticSolanaWalletDerivation } from "@aptos-labs/derived-wallet-solana";
 import { setupAutomaticEthereumWalletDerivation } from "@aptos-labs/derived-wallet-ethereum";
+import { setupAutomaticSolanaWalletDerivation } from "@aptos-labs/derived-wallet-solana";
+import { Network } from "@aptos-labs/ts-sdk";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
+import type { PropsWithChildren } from "react";
 
 setupAutomaticSolanaWalletDerivation({ defaultNetwork: Network.DEVNET });
 setupAutomaticEthereumWalletDerivation({ defaultNetwork: Network.DEVNET });
