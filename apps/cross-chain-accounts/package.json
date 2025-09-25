@@ -1,8 +1,7 @@
 {
-  "name": "@shelby-protocol/web",
-  "version": "0.1.0",
-  "description": "A Next.js application showcasing Shelby integrations",
-  "type": "module",
+  "name": "@shelby-protocol/cross-chain-accounts",
+  "version": "0.0.0",
+  "description": "Shelby cross chain accounts example",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 3000",
@@ -13,6 +12,11 @@
     "test:once": "echo 'No tests configured'"
   },
   "dependencies": {
+    "@aptos-labs/derived-wallet-ethereum": "^0.8.0",
+    "@aptos-labs/derived-wallet-solana": "^0.8.0",
+    "@aptos-labs/ts-sdk": "^5.1.0",
+    "@aptos-labs/wallet-adapter-react": "^7.1.0",
+    "@shelby-protocol/sdk": "0.0.1-experimental.4",
     "@shelby-protocol/ui": "workspace:*",
     "next": "^15.5.0",
     "react": "^18.3.1",
@@ -21,7 +25,6 @@
   "devDependencies": {
     "@types/node": "^22.15.3",
     "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "typescript": "5.8.2"
+    "@types/react-dom": "^18.3.1"
   }
 }
