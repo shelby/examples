@@ -28,7 +28,7 @@ This Turborepo includes the following example applications:
 
 | Name | Description | Path & Links |
 | --- | --- | --- |
-| `@shelby-protocol/web` | A Next.js application showcasing Shelby integrations | [`apps/web`](./apps/web) |
+| `@shelby-protocol/cross-chain-accounts` | Shelby cross chain accounts example | [`apps/cross-chain-accounts`](./apps/cross-chain-accounts) |
 
 <!-- APPS_TABLE_END -->
 
