@@ -1,6 +1,5 @@
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import type { BlobMetadata } from "@shelby-protocol/sdk/browser";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getShelbyClient, SHELBY_API_URL } from "@/utils/client";
 
@@ -94,15 +93,16 @@ export const AccountBlobs = ({ refreshTrigger }: AccountBlobsProps) => {
                   <span className="text-gray-500 dark:text-gray-400">
                     Download:
                   </span>
-                  <Link
+                  <a
                     href={`${SHELBY_API_URL}/v1/blobs/${blob.owner.toString()}/${
                       blob.name
                     }`}
                     className="block text-blue-600 dark:text-blue-400 hover:underline text-xs mt-1 break-all"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     View Image
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

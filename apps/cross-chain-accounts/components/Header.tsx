@@ -1,6 +1,6 @@
-import { XChainWalletSelector } from "@shelby-protocol/ui/components/x-chain-wallet-selector";
-import { Button } from "@shelby-protocol/ui/components/button";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Button } from "@shelby-protocol/ui/components/button";
+import { XChainWalletSelector } from "@shelby-protocol/ui/components/x-chain-wallet-selector";
 
 export const Header = () => {
   const { connected, account } = useWallet();
@@ -11,7 +11,7 @@ export const Header = () => {
     }
     window.open(
       `https://docs.shelby.xyz/docs/faucet?address=${account.address}`,
-      "_blank"
+      "_blank",
     );
   };
 

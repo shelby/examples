@@ -10,7 +10,7 @@ export const aptosClient = new Aptos(
     clientConfig: {
       API_KEY: process.env.NEXT_PUBLIC_SHELBY_API_KEY,
     },
-  })
+  }),
 );
 
 export const getAptosClient = () => {
