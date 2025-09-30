@@ -5,10 +5,18 @@ This example demonstrates how one can upload and view files using cross-chain (n
 ### Prerequisites
 
 - `node` and `pnpm`
-- Shelby API key. For best performance, you are encouraged to generate an API Key so your app will not hit the rate limit.
+- Shelby API key. For best performance, you are encouraged to generate an API key so your app will not hit the rate limit.
   - Head to [Geomi](https://geomi.dev/) to generate an API key for `shelbydevnet` and add it to the `.env` file as `NEXT_PUBLIC_SHELBY_API_KEY=<my-api-key>`
 
 ### Starting the Demo dApp
+
+Create an `.env` file by copying the `.env.example` file and fill out the required variables.
+
+```bash
+cp .env.example .env
+```
+
+Then install dependencies and run the dapp locally
 
 ```bash
 pnpm install
@@ -29,7 +37,7 @@ At a high level, uploading a file to Shelby includes 3 steps:
 
 #### Encode File
 
-Encoding a file means we split the file into chunks, where each chunk has a `commitment hash` and these are combined to make the `blob merkle root hash`.
+Encoding a file means we split the file into chunks, where each chunk has a `commitment hash`, and these are combined to make the `blob merkle root hash`.
 
 We then send all these hashes to the blockchain so they can be verified with the storage providers.
 
@@ -65,9 +73,15 @@ const payload = ShelbyBlobClient.createWriteBlobCommitmentsPayload({
 });
 ```
 
-Once we have the transaction payload, we can submit it to chain. As mentioned before, in this example we support both Aptos native and cross-chain wallet transaction submissions.
+Once we have the transaction payload, we can submit it to the chain. As mentioned before, in this example we support both Aptos native and cross-chain wallet transaction submissions.
 
 ##### Aptos native wallets
+
+> Note: Make sure your wallet is configured to use the `shelbydevnet` network. Petra (and some other wallets) lets you create a custom network, use those values
+>
+> - Node URL: https://api.devnet.shelby.xyz/v1
+> - Faucet URL: https://faucet.devnet.shelby.xyz (APT faucet)
+> - Indexer URL: https://api.devnet.shelby.xyz/v1/graphql
 
 ```ts
 // Send the transaction to the connected wallet to sign and submit
@@ -75,7 +89,7 @@ const transaction: InputTransactionData = {
   data: payload,
 };
 const transactionSubmitted = await signAndSubmitTransaction(transaction);
-// Wait for transaction to be submitted on chain
+// Wait for transaction to be submitted on the chain
 await getShelbyClient().aptos.waitForTransaction({
   transactionHash: transactionSubmitted.hash,
 });
@@ -123,7 +137,7 @@ const transactionSubmitted =
     feePayerAuthenticator: sponsorAuthenticator,
   });
 
-// Wait for transaction to be submitted on chain
+// Wait for transaction to be submitted on the chain
 await getShelbyClient().aptos.waitForTransaction({
   transactionHash: transactionSubmitted.hash,
 });
@@ -131,7 +145,7 @@ await getShelbyClient().aptos.waitForTransaction({
 
 #### Upload the file to Shelby RPC
 
-After we submit the transaction and register the commitment hashes on chain, we can upload the file to the Shelby RPC so it can be verified with the storage providers to ensure that the uploaded data matches the one on the blockchain by comparing the hashes.
+After we submit the transaction and register the commitment hashes on the chain, we can upload the file to the Shelby RPC so it can be verified with the storage providers to ensure that the uploaded data matches the one on the blockchain by comparing the hashes.
 
 > Note: The RPC will make checks on-chain to ensure the file is there first, which is why registration can't happen in parallel with an upload to the RPC.
 

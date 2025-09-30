@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Shelby Theater",
-  description: "A streaming platform served by Shelby",
+  title: "Shelby Cross Chain Accounts Example",
+  description: "A cross-chain accounts example",
 };
 
 export default function RootLayout({
