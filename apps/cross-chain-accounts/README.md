@@ -2,6 +2,9 @@
 
 This example demonstrates how one can upload and view files using cross-chain (non-Aptos) wallets on the Shelby network.
 
+Checkout the live deployed dapp on:
+https://shelby-x-chain-accounts-example.vercel.app/
+
 ### Prerequisites
 
 - `node` and `pnpm`
