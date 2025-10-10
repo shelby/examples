@@ -6,15 +6,15 @@ import { Network } from "@aptos-labs/ts-sdk";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 import type { PropsWithChildren } from "react";
 
-setupAutomaticSolanaWalletDerivation({ defaultNetwork: Network.DEVNET });
-setupAutomaticEthereumWalletDerivation({ defaultNetwork: Network.DEVNET });
+setupAutomaticSolanaWalletDerivation({ defaultNetwork: Network.SHELBYNET });
+setupAutomaticEthereumWalletDerivation({ defaultNetwork: Network.SHELBYNET });
 
 export const WalletProvider = ({ children }: PropsWithChildren) => {
   return (
     <AptosWalletAdapterProvider
       autoConnect={true}
       dappConfig={{
-        network: Network.DEVNET,
+        network: Network.SHELBYNET,
         aptosApiKeys: {
           devnet: process.env.NEXT_PUBLIC_SHELBY_API_KEY,
         },
