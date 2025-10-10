@@ -2,11 +2,14 @@
 
 This example demonstrates how one can upload and view files using cross-chain (non-Aptos) wallets on the Shelby network.
 
+Checkout the live deployed dapp on:
+https://shelby-x-chain-accounts-example.vercel.app/
+
 ### Prerequisites
 
 - `node` and `pnpm`
 - Shelby API key. For best performance, you are encouraged to generate an API key so your app will not hit the rate limit.
-  - Head to [Geomi](https://geomi.dev/) to generate an API key for `shelbydevnet` and add it to the `.env` file as `NEXT_PUBLIC_SHELBY_API_KEY=<my-api-key>`
+  - Head to [Geomi](https://geomi.dev/) to generate an API key for `shelbynet` and add it to the `.env` file as `NEXT_PUBLIC_SHELBY_API_KEY=<my-api-key>`
 
 ### Starting the Demo dApp
 
@@ -43,54 +46,63 @@ We then send all these hashes to the blockchain so they can be verified with the
 
 ```ts
 export const encodeFile = async (file: File): Promise<BlobCommitments> => {
+  // Make sure data is a Buffer
   const data = Buffer.isBuffer(file)
     ? file
     : Buffer.from(await file.arrayBuffer());
 
-  const commitments = await generateCommitments(data);
+  // Create provider for direct use with generateCommitments
+  const provider = await ClayErasureCodingProvider.create();
+
+  // Generate a commitment
+  const commitments = await generateCommitments(provider, data);
 
   return commitments;
 };
 ```
 
-#### Register the file on chain (transaction submission)
+#### Register the file on the Aptos chain (transaction submission)
 
-> Note: To upload a file to the Shelby network, the account should hold PROTO tokens (1 PROTO for 1 upload). Make sure to fund your account by going to https://docs.shelby.xyz/docs/faucet
+> Note: To upload a file to the Shelby network, the account should hold shelbyUSD tokens (1 shelbyUSD for 1 upload). Make sure to fund your account by going to https://docs.shelby.xyz/apis/faucet/shelbyusd
 
 After we have the commitment hashes of the file, we can register the file on chain by submitting a transaction.
 
 ```ts
 // Generate the transaction payload
-const payload = ShelbyBlobClient.createWriteBlobCommitmentsPayload({
+const payload = ShelbyBlobClient.createRegisterBlobPayload({
   account: account.address,
   blobName: file.name,
   blobMerkleRoot: commitment.blob_merkle_root,
-  chunksetChunkCommitments: commitment.chunkset_commitments.map(
-    (chunkset) => chunkset.chunk_commitments
-  ),
+  numChunksets: expectedTotalChunksets(commitment.raw_data_size),
   expirationMicros: (1000 * 60 * 60 * 24 * 30 + Date.now()) * 1000, // 30 days from now in microseconds
-  size: commitment.raw_data_size,
+  blobSize: commitment.raw_data_size,
 });
 ```
 
-Once we have the transaction payload, we can submit it to the chain. As mentioned before, in this example we support both Aptos native and cross-chain wallet transaction submissions.
+Once we have the transaction payload, we can submit it to the Aptos chain. As mentioned before, in this example we support both Aptos native and cross-chain wallet transaction submissions.
 
 ##### Aptos native wallets
 
-> Note: Make sure your wallet is configured to use the `shelbydevnet` network. Petra (and some other wallets) lets you create a custom network, use those values
+> Note: Make sure your wallet is configured to use the `shelbynet` network. Petra (and some other wallets) lets you create a custom network, use those values
 >
-> - Node URL: https://api.devnet.shelby.xyz/v1
-> - Faucet URL: https://faucet.devnet.shelby.xyz (APT faucet)
-> - Indexer URL: https://api.devnet.shelby.xyz/v1/graphql
+> - Node URL: https://api.shelbynet.shelby.xyz/v1
+> - Faucet URL: https://faucet.shelbynet.shelby.xyz (APT faucet)
+> - Indexer URL: https://api.shelbynet.shelby.xyz/v1/graphql
 
 ```ts
+import {
+  type InputTransactionData,
+  useWallet,
+} from "@aptos-labs/wallet-adapter-react";
+
+const { signAndSubmitTransaction } = useWallet();
 // Send the transaction to the connected wallet to sign and submit
 const transaction: InputTransactionData = {
   data: payload,
 };
 const transactionSubmitted = await signAndSubmitTransaction(transaction);
 // Wait for transaction to be submitted on the chain
-await getShelbyClient().aptos.waitForTransaction({
+await getAptosClient().waitForTransaction({
   transactionHash: transactionSubmitted.hash,
 });
 ```
@@ -100,6 +112,13 @@ await getShelbyClient().aptos.waitForTransaction({
 Following the [cross-chain wallet docs](https://aptos.dev/build/sdks/wallet-adapter/x-chain-accounts#submitting-a-transaction), it is recommended to sponsor the transaction as we can assume a cross-chain wallet does not have APT to pay the transaction fees.
 
 ```ts
+import {
+  type InputTransactionData,
+  useWallet,
+} from "@aptos-labs/wallet-adapter-react";
+
+const { signTransaction } = useWallet();
+
 // Create the sponsor account
 const privateKey = new Ed25519PrivateKey(
   PrivateKey.formatPrivateKey(
@@ -110,9 +129,9 @@ const privateKey = new Ed25519PrivateKey(
 const sponsorAccount = Account.fromPrivateKey({ privateKey });
 
 // Build the transaction
-const rawTransaction = await getShelbyClient().aptos.transaction.build.simple({
+const rawTransaction = await getAptosClient().transaction.build.simple({
   sender: account.address,
-  data: payload,
+  data: payload, // the payload we generated in the previous step
   withFeePayer: true,
 });
 
@@ -122,23 +141,20 @@ const walletSignedTransaction = await signTransaction({
 });
 
 // Sponsor signs the transaction
-const sponsorAuthenticator = getShelbyClient().aptos.transaction.signAsFeePayer(
-  {
-    signer: sponsorAccount,
-    transaction: rawTransaction,
-  }
-);
+const sponsorAuthenticator = getAptosClient().transaction.signAsFeePayer({
+  signer: sponsorAccount,
+  transaction: rawTransaction,
+});
 
 // Submit the transaction to chain
-const transactionSubmitted =
-  await getShelbyClient().aptos.transaction.submit.simple({
-    transaction: rawTransaction,
-    senderAuthenticator: walletSignedTransaction.authenticator,
-    feePayerAuthenticator: sponsorAuthenticator,
-  });
+const transactionSubmitted = await getAptosClient().transaction.submit.simple({
+  transaction: rawTransaction,
+  senderAuthenticator: walletSignedTransaction.authenticator,
+  feePayerAuthenticator: sponsorAuthenticator,
+});
 
 // Wait for transaction to be submitted on the chain
-await getShelbyClient().aptos.waitForTransaction({
+await getAptosClient().waitForTransaction({
   transactionHash: transactionSubmitted.hash,
 });
 ```

@@ -5,12 +5,12 @@ import { XChainWalletSelector } from "@shelby-protocol/ui/components/x-chain-wal
 export const Header = () => {
   const { connected, account } = useWallet();
 
-  const onMintProto = () => {
+  const onMintShelbyUsd = () => {
     if (!account) {
       return;
     }
     window.open(
-      `https://docs.shelby.xyz/docs/faucet?address=${account.address}`,
+      `https://docs.shelby.xyz/apis/faucet/shelbyusd?address=${account.address}`,
       "_blank",
     );
   };
@@ -23,8 +23,8 @@ export const Header = () => {
         </h1>
       </div>
       <div className="flex items-center gap-3">
-        <Button disabled={!connected} onClick={() => onMintProto()}>
-          Mint PROTO
+        <Button disabled={!connected} onClick={() => onMintShelbyUsd()}>
+          Mint shelbyUSD
         </Button>
         <XChainWalletSelector
           size="sm"

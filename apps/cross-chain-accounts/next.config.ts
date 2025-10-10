@@ -4,7 +4,14 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@shelby-protocol/ui"],
   typedRoutes: true,
   images: {
-    remotePatterns: [new URL("https://api.devnet.shelby.xyz/shelby")],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.shelbynet.shelby.xyz",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

@@ -66,8 +66,8 @@ export const FileUpload = ({ onUploadSuccess }: FileUploadProps) => {
           </label>
           <input
             id="file-upload"
+            accept="image/*"
             type="file"
-            accept="image/*, .pdf, .txt, .doc, .docx, .xls, .xlsx, .ppt, .pptx"
             onChange={handleFileChange}
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200 dark:file:bg-gray-800 dark:file:text-gray-300 dark:hover:file:bg-gray-700"
           />
