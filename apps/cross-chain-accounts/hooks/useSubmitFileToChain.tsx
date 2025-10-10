@@ -10,10 +10,11 @@ import {
 } from "@aptos-labs/wallet-adapter-react";
 import {
   type BlobCommitments,
+  expectedTotalChunksets,
   ShelbyBlobClient,
 } from "@shelby-protocol/sdk/browser";
 import { useCallback, useState } from "react";
-import { getShelbyClient } from "@/utils/client";
+import { getAptosClient, getShelbyClient } from "@/utils/client";
 
 interface UseSubmitFileToChainReturn {
   submitFileToChain: (commitment: BlobCommitments, file: File) => Promise<void>;
@@ -37,15 +38,13 @@ export const useSubmitFileToChain = (): UseSubmitFileToChainReturn => {
       setError(null);
 
       try {
-        const payload = ShelbyBlobClient.createWriteBlobCommitmentsPayload({
+        const payload = ShelbyBlobClient.createRegisterBlobPayload({
           account: account.address,
           blobName: file.name,
           blobMerkleRoot: commitment.blob_merkle_root,
-          chunksetChunkCommitments: commitment.chunkset_commitments.map(
-            (chunkset) => chunkset.chunk_commitments,
-          ),
+          numChunksets: expectedTotalChunksets(commitment.raw_data_size),
           expirationMicros: (1000 * 60 * 60 * 24 * 30 + Date.now()) * 1000, // 30 days from now in microseconds
-          size: commitment.raw_data_size,
+          blobSize: commitment.raw_data_size,
         });
 
         if (wallet.isAptosNativeWallet) {
@@ -55,7 +54,7 @@ export const useSubmitFileToChain = (): UseSubmitFileToChainReturn => {
           const transactionSubmitted =
             await signAndSubmitTransaction(transaction);
 
-          await getShelbyClient().aptos.waitForTransaction({
+          await getAptosClient().waitForTransaction({
             transactionHash: transactionSubmitted.hash,
           });
         } else {

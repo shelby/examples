@@ -1,7 +1,8 @@
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import type { BlobMetadata } from "@shelby-protocol/sdk/browser";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { getShelbyClient, SHELBY_API_URL } from "@/utils/client";
+import { getShelbyClient } from "@/utils/client";
 
 interface AccountBlobsProps {
   refreshTrigger?: number;
@@ -29,6 +30,16 @@ export const AccountBlobs = ({ refreshTrigger }: AccountBlobsProps) => {
     });
   }, [account, refreshTrigger]);
 
+  const extractFileName = (blobName: string): string => {
+    return blobName.split("/").pop() || blobName;
+  };
+
+  const isImageFile = (filename: string): boolean => {
+    const imageExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
+    const extension = filename.split(".").pop()?.toLowerCase();
+    return extension ? imageExtensions.includes(extension) : false;
+  };
+
   return (
     <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 bg-background">
       {!account && (
@@ -54,29 +65,49 @@ export const AccountBlobs = ({ refreshTrigger }: AccountBlobsProps) => {
             {/* Image Section */}
             <div className="w-full h-48 bg-gray-100 dark:bg-gray-700 p-2">
               <div className="h-full relative">
-                <img
-                  src={`${SHELBY_API_URL}/v1/blobs/${blob.owner.toString()}/${
-                    blob.name
-                  }`}
-                  alt={blob.name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    borderRadius: "4px",
-                  }}
-                  onError={(e) => {
-                    console.error("Image failed to load:", e);
-                  }}
-                />
+                {isImageFile(extractFileName(blob.name)) ? (
+                  <Image
+                    src={`${
+                      process.env.NEXT_PUBLIC_SHELBY_API_URL
+                    }/v1/blobs/${blob.owner.toString()}/${extractFileName(
+                      blob.name,
+                    )}`}
+                    alt={blob.name}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                      borderRadius: "4px",
+                    }}
+                    width={100}
+                    height={100}
+                    onError={(e) => {
+                      console.error("Image failed to load:", e);
+                    }}
+                  />
+                ) : (
+                  <div
+                    className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-600 rounded"
+                    style={{
+                      borderRadius: "4px",
+                    }}
+                  >
+                    <div className="text-center p-4">
+                      <div className="text-gray-400 dark:text-gray-500 mb-2" />
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-300 break-words">
+                        {extractFileName(blob.name)}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Content Section */}
             <div className="p-4 space-y-3">
               <h3 className="font-semibold text-lg text-gray-900 dark:text-white truncate">
-                {blob.name}
+                {extractFileName(blob.name)}
               </h3>
 
               <div className="space-y-2 text-sm">
@@ -90,18 +121,17 @@ export const AccountBlobs = ({ refreshTrigger }: AccountBlobsProps) => {
                 </div>
 
                 <div>
-                  <span className="text-gray-500 dark:text-gray-400">
-                    Download:
-                  </span>
                   <a
-                    href={`${SHELBY_API_URL}/v1/blobs/${blob.owner.toString()}/${
-                      blob.name
-                    }`}
+                    href={`${
+                      process.env.NEXT_PUBLIC_SHELBY_API_URL
+                    }/v1/blobs/${blob.owner.toString()}/${extractFileName(
+                      blob.name,
+                    )}`}
                     className="block text-blue-600 dark:text-blue-400 hover:underline text-xs mt-1 break-all"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    View Image
+                    Download Image
                   </a>
                 </div>
               </div>
