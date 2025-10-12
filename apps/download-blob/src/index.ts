@@ -1,81 +1,36 @@
+// download.ts — run with: npx tsx download.ts
 import "dotenv/config"
-import { createWriteStream, mkdirSync } from "node:fs"
+import { mkdirSync, createWriteStream } from "node:fs"
 import { dirname, join } from "node:path"
 import { Readable } from "node:stream"
 import { pipeline } from "node:stream/promises"
-import type { ReadableStream } from "node:stream/web"
-import {
-	AccountAddress,
-	Network,
-} from "@aptos-labs/ts-sdk"
+import { AccountAddress, Network } from "@aptos-labs/ts-sdk"
 import { ShelbyNodeClient } from "@shelby-protocol/sdk/node"
 
-const BLOB_NAME = "whitepaper.pdf" // Name to assign the blob in Shelby
+// The blob name as stored in Shelby (must match what you uploaded or already have).
+const BLOB_NAME = "whitepaper.pdf"
 
-/**
- * Load & validate env vars from the .env file (see README)
- */
-const SHELBY_ACCOUNT_ADDRESS = process.env.SHELBY_ACCOUNT_ADDRESS as string
-const SHELBY_API_KEY = process.env.SHELBY_API_KEY
+// Where to save the downloaded file locally.
+const OUT_PATH = join(process.cwd(), "downloads", BLOB_NAME)
 
-if (!SHELBY_ACCOUNT_ADDRESS) {
-	console.error("SHELBY_ACCOUNT_ADDRESS is not set in .env")
-	process.exit(1)
-}
-if (!SHELBY_API_KEY) {
-	console.error("SHELBY_API_KEY is not set in .env")
-	process.exit(1)
-}
-
-/**
- * For now, Shelby only supports the shelbynet network
- * In the future, you can specify which network to use
- */
+// 1) Initialize a Shelby client (auth via API key; target shelbynet).
 const client = new ShelbyNodeClient({
-	network: Network.SHELBYNET,
-	apiKey: SHELBY_API_KEY,
+  network: Network.SHELBYNET,
+  apiKey: process.env.SHELBY_API_KEY!, // ensure .env is loaded
 })
-const account = AccountAddress.fromString(SHELBY_ACCOUNT_ADDRESS)
 
-// Away we go!
-async function main() {
-	try {
-		/**
-		 * Download the blob from Shelby
-		 */
-		console.log("*** Downloading blob from Shelby...")
-		const download = await client.download({ account, blobName: BLOB_NAME })
-		console.log("*** Downloaded", BLOB_NAME, "successfully.")
-		const outPath = join(process.cwd(), "downloads", BLOB_NAME)
-		/**
-		 * Save the blob to the local filesystem
-		 */
-		mkdirSync(dirname(outPath), { recursive: true })
-		const webStream = download.readable as ReadableStream<Uint8Array>
-		await pipeline(Readable.fromWeb(webStream), createWriteStream(outPath))
-		console.log("*** Saved the blob to", outPath)
-	} catch (e: unknown) {
-		if (e instanceof Error && e.message.includes("429")) {
-			console.error("*** Rate limit exceeded (429).")
-			return
-		}
-		const msg = e instanceof Error ? e.message : String(e)
-		if (/not\s*found|404/i.test(msg)) {
-			console.error(
-                `*** Blob "${BLOB_NAME}" not found for account ${SHELBY_ACCOUNT_ADDRESS}`
-            )
-			process.exit(1)
-		}
-		/**
-		 * If this occurs repeatedly, please contact Shelby support!
-		 */
-		if (/500|internal server error/i.test(msg)) {
-			console.error("*** Server error occurred.")
-			process.exit(1)
-		}
-		console.error("Unexpected error:\n", msg)
-		process.exit(1)
-	}
-}
+// 2) Parse the account address you'll download from.
+//    ⚠️ This should be the *same account* that previously uploaded the blob.
+const account = AccountAddress.fromString(process.env.SHELBY_ACCOUNT_ADDRESS!)
 
-main()
+// 3) Ask Shelby for a readable Web stream of the blob bytes.
+const { readable } = await client.download({ account, blobName: BLOB_NAME })
+
+// 4) Make sure the output directory exists.
+mkdirSync(dirname(OUT_PATH), { recursive: true })
+
+// 5) Pipe the Web stream directly to a Node write stream (no buffering).
+await pipeline(Readable.fromWeb(readable as any), createWriteStream(OUT_PATH))
+
+console.log("✓ Saved to", OUT_PATH)
+
