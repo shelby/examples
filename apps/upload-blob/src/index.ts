@@ -10,9 +10,6 @@ const TIME_TO_LIVE = 60 * 60 * 1_000_000;
 // The blob name to use in Shelby (can be different from the local file name).
 const BLOB_NAME = "whitepaper.pdf";
 
-if (!process.env.SHELBY_ACCOUNT_ADDRESS) {
-  throw new Error("Missing SHELBY_ACCOUNT_ADDRESS");
-}
 if (!process.env.SHELBY_ACCOUNT_PRIVATE_KEY) {
   throw new Error("Missing SHELBY_ACCOUNT_PRIVATE_KEY");
 }
