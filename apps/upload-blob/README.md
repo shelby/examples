@@ -5,7 +5,7 @@ An example application demonstrating how to upload blobs using the Shelby SDK. T
 ## Prerequisites
 
 - Node.js >= 22
-- npm, yarn, or pnpm package manager
+- pnpm package manager
 - A Shelby account with sufficient balance for blob storage
 - Shelby API key
 - Shelby account private key
