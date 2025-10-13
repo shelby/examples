@@ -1,5 +1,5 @@
 {
-  "name": "shelby-upload-example",
+  "name": "@shelby-protocol/upload-example",
   "version": "1.0.0",
   "description": "An example app to demonstrate uploading blobs using the Shelby SDK",
   "type": "module",
