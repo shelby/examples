@@ -19,10 +19,6 @@ An example application demonstrating how to upload blobs using the Shelby SDK. T
 
 2. Install dependencies:
    ```bash
-   npm install
-   # or
-   yarn install
-   # or
    pnpm install
    ```
 
