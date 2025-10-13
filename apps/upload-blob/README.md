@@ -58,7 +58,7 @@ const BLOB_NAME = "whitepaper.pdf";
 
 ## Usage
 
-Run the example using the start script:
+Run the example using the `upload` script:
 
 ```bash
 npm start
