@@ -4,7 +4,7 @@
   "description": "An example app to demonstrate downloading blobs using the Shelby SDK",
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "start": "tsx --env-file=.env src/index.ts",
     "lint": "biome check .",
     "fmt": "biome check . --write"
   },
