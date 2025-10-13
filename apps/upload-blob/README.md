@@ -61,7 +61,7 @@ const BLOB_NAME = "whitepaper.pdf";
 Run the example using the `upload` script:
 
 ```bash
-npm start
+pnpm upload
 ```
 
 This will execute the TypeScript file directly using tsx with the environment variables from your `.env` file.
