@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "An example app to demonstrate downloading blobs using the Shelby SDK",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
   "scripts": {
     "start": "tsx src/index.ts",
     "lint": "biome check .",
