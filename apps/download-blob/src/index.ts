@@ -38,6 +38,9 @@ const { readable } = await client.download({ account, blobName: BLOB_NAME });
 mkdirSync(dirname(OUT_PATH), { recursive: true });
 
 // 5) Pipe the Web stream directly to a Node write stream (no buffering).
-await pipeline(Readable.fromWeb(readable as ReadableStream<Uint8Array>), createWriteStream(OUT_PATH));
+await pipeline(
+  Readable.fromWeb(readable as ReadableStream<Uint8Array>),
+  createWriteStream(OUT_PATH),
+);
 
 console.log("✓ Saved to", OUT_PATH);
