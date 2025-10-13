@@ -4,7 +4,7 @@
   "description": "An example app to demonstrate uploading blobs using the Shelby SDK",
   "type": "module",
   "scripts": {
-    "start": "tsx --env-file=.env src/index.ts",
+    "upload": "tsx --env-file=.env src/index.ts",
     "lint": "biome check .",
     "fmt": "biome check . --write"
   },
