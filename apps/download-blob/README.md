@@ -52,32 +52,20 @@ const BLOB_NAME = "your-blob-name.ext" // Change this to your desired blob name
 
 ## Usage
 
-### Development Mode
-
-Run the example in development mode with automatic rebuilding:
+Run the example using the start script:
 
 ```bash
-npm run dev
+npm start
 ```
 
-### Production Mode
+This will execute the TypeScript file directly using tsx with the environment variables from your `.env` file.
 
-1. Build the app:
-   ```bash
-   npm run build
-   ```
-
-2. Run the built app:
-   ```bash
-   npm start
-   ```
-
-### Direct Execution
+### Alternative Execution
 
 You can also run the TypeScript file directly using tsx:
 
 ```bash
-npx tsx src/index.ts
+npx tsx --env-file=.env src/index.ts
 ```
 
 ## How It Works
