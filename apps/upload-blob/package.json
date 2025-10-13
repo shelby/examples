@@ -1,0 +1,32 @@
+{
+  "name": "@shelby-protocol/upload-example",
+  "version": "1.0.0",
+  "description": "An example app to demonstrate uploading blobs using the Shelby SDK",
+  "type": "module",
+  "scripts": {
+    "upload": "tsx --env-file=.env src/index.ts",
+    "lint": "biome check .",
+    "fmt": "biome check . --write"
+  },
+  "keywords": [
+    "shelby",
+    "sdk",
+    "blob",
+    "storage"
+  ],
+  "author": "Akasha <akasha@shelby.xyz>",
+  "license": "MIT",
+  "dependencies": {
+    "@aptos-labs/ts-sdk": "^5.1.1",
+    "@shelby-protocol/sdk": "^0.0.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

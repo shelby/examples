@@ -86,6 +86,28 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@22.18.9)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)
 
+  apps/upload-blob:
+    dependencies:
+      '@aptos-labs/ts-sdk':
+        specifier: ^5.1.1
+        version: 5.1.1(got@11.8.6)
+      '@shelby-protocol/sdk':
+        specifier: ^0.0.4
+        version: 0.0.4(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))
+    devDependencies:
+      '@biomejs/biome':
+        specifier: 2.2.4
+        version: 2.2.4
+      tsx:
+        specifier: ^4.20.5
+        version: 4.20.6
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/node@22.18.9)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)
+
   packages/table-generator:
     dependencies:
       tsx:
