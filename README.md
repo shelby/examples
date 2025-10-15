@@ -30,6 +30,7 @@ This Turborepo includes the following example applications:
 | --- | --- | --- |
 | `@shelby-protocol/cross-chain-accounts` | Shelby cross chain accounts example | [`apps/cross-chain-accounts`](./apps/cross-chain-accounts) |
 | `@shelby-protocol/download-example` | An example app to demonstrate downloading blobs using the Shelby SDK | [`apps/download-blob`](./apps/download-blob) |
+| `@shelby-protocol/list-example` | An example app to demonstrate listing blobs using the Shelby SDK | [`apps/list-blob`](./apps/list-blob) |
 | `@shelby-protocol/upload-example` | An example app to demonstrate uploading blobs using the Shelby SDK | [`apps/upload-blob`](./apps/upload-blob) |
 
 <!-- APPS_TABLE_END -->
