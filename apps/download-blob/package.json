@@ -1,5 +1,5 @@
 {
-  "name": "shelby-download-example",
+  "name": "@shelby-protocol/download-example",
   "version": "1.0.0",
   "description": "An example app to demonstrate downloading blobs using the Shelby SDK",
   "type": "module",
