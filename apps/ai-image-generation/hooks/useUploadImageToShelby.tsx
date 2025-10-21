@@ -20,7 +20,7 @@ interface UseUploadImageToShelbyReturn {
     blobName: string;
   }>;
   uploadMetadataToShelby: (
-    metadata: any,
+    metadata: Record<string, unknown>,
     metadataName: string,
   ) => Promise<{
     url: string;
@@ -80,7 +80,7 @@ export const useUploadImageToShelby = (): UseUploadImageToShelbyReturn => {
   );
 
   const uploadMetadataToShelby = useCallback(
-    async (metadata: any, metadataName: string) => {
+    async (metadata: Record<string, unknown>, metadataName: string) => {
       if (!account || !wallet) {
         throw new Error("Wallet not connected");
       }

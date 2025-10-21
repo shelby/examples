@@ -25,6 +25,7 @@ export const GeneratedImages = ({
   const [images, setImages] = useState<BlobMetadata[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: refreshTrigger is intentionally used to trigger re-fetch
   useEffect(() => {
     if (!account) {
       setImages([]);
@@ -40,7 +41,7 @@ export const GeneratedImages = ({
 
         // Filter to only show PNG images
         const pngBlobs = allBlobs.filter((blob) =>
-          extractFileName(blob.name).endsWith(".png")
+          extractFileName(blob.name).endsWith(".png"),
         );
 
         setImages(pngBlobs);
@@ -96,7 +97,7 @@ export const GeneratedImages = ({
                     src={`${
                       process.env.NEXT_PUBLIC_SHELBY_API_URL
                     }/v1/blobs/${item.owner.toString()}/${extractFileName(
-                      item.name
+                      item.name,
                     )}`}
                     alt={item.name}
                     style={{
@@ -117,7 +118,7 @@ export const GeneratedImages = ({
                   <p className="text-sm font-medium line-clamp-2">
                     <a
                       href={`https://explorer.shelby.xyz/shelbynet/account/${item.owner.toString()}/blobs?name=${encodeURIComponent(
-                        extractFileName(item.name)
+                        extractFileName(item.name),
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"

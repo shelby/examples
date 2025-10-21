@@ -7,7 +7,7 @@ export const aptosClient = new Aptos(
     clientConfig: {
       API_KEY: process.env.NEXT_PUBLIC_APTOS_API_KEY,
     },
-  })
+  }),
 );
 
 export const getAptosClient = () => {

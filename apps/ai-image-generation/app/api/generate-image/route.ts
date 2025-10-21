@@ -1,10 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY ?? "";
 
 const openaiClient = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: OPENAI_API_KEY,
 });
 
 async function genWithOpenAI(prompt: string): Promise<Buffer> {
@@ -48,11 +48,11 @@ export async function POST(request: NextRequest) {
         "Content-Length": imageBuffer.length.toString(),
       },
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error(e);
     return NextResponse.json(
-      { error: e?.message || "generation failed" },
-      { status: 500 }
+      { error: e instanceof Error ? e.message : "generation failed" },
+      { status: 500 },
     );
   }
 }

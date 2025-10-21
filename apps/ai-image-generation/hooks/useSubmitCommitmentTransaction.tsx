@@ -1,6 +1,7 @@
 import {
   Account,
   Ed25519PrivateKey,
+  type InputGenerateTransactionPayloadData,
   PrivateKey,
   PrivateKeyVariants,
 } from "@aptos-labs/ts-sdk";
@@ -16,7 +17,7 @@ export const useSubmitCommitmentTransaction = () => {
     useWallet();
 
   const submitTransaction = useCallback(
-    async (payload: any) => {
+    async (payload: InputGenerateTransactionPayloadData) => {
       if (!account || !wallet) {
         throw new Error("Wallet not connected");
       }
@@ -26,9 +27,8 @@ export const useSubmitCommitmentTransaction = () => {
         const transaction: InputTransactionData = {
           data: payload,
         };
-        const transactionSubmitted = await signAndSubmitTransaction(
-          transaction
-        );
+        const transactionSubmitted =
+          await signAndSubmitTransaction(transaction);
 
         await getAptosClient().waitForTransaction({
           transactionHash: transactionSubmitted.hash,
@@ -38,8 +38,8 @@ export const useSubmitCommitmentTransaction = () => {
         const privateKey = new Ed25519PrivateKey(
           PrivateKey.formatPrivateKey(
             process.env.NEXT_PUBLIC_SPONSOR_PRIVATE_KEY as string,
-            PrivateKeyVariants.Ed25519
-          )
+            PrivateKeyVariants.Ed25519,
+          ),
         );
         const sponsorAccount = Account.fromPrivateKey({ privateKey });
 
@@ -72,7 +72,7 @@ export const useSubmitCommitmentTransaction = () => {
         });
       }
     },
-    [account, wallet, signAndSubmitTransaction, signTransaction]
+    [account, wallet, signAndSubmitTransaction, signTransaction],
   );
 
   return { submitTransaction };

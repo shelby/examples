@@ -40,9 +40,6 @@ interface ImageGeneratorProps {
 export const ImageGenerator = ({ onImageGenerated }: ImageGeneratorProps) => {
   const { account, connected } = useWallet();
   const [prompt, setPrompt] = useState("");
-  const [generatedImage, setGeneratedImage] = useState<GeneratedImage | null>(
-    null,
-  );
 
   const { generateImage, isGenerating } = useGenerateImage();
   const { uploadImageToShelby, uploadMetadataToShelby, isUploading } =
@@ -93,7 +90,6 @@ export const ImageGenerator = ({ onImageGenerated }: ImageGeneratorProps) => {
         metadata: uploadedMetadata,
       };
 
-      setGeneratedImage(result);
       onImageGenerated?.(result);
       toast.success("Image generated and uploaded successfully!");
     } catch (error) {
