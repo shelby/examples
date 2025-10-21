@@ -1,0 +1,33 @@
+{
+  "name": "@shelby-protocol/ai-image-generation",
+  "version": "0.0.0",
+  "description": "Shelby AI image generation example",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check .",
+    "fmt": "biome check . --write"
+  },
+  "dependencies": {
+    "@aptos-labs/derived-wallet-ethereum": "^0.8.0",
+    "@aptos-labs/derived-wallet-solana": "^0.8.0",
+    "@aptos-labs/ts-sdk": "^5.1.1",
+    "@aptos-labs/wallet-adapter-react": "^7.1.0",
+    "@shelby-protocol/sdk": "0.0.4",
+    "@shelby-protocol/ui": "workspace:*",
+    "dotenv": "^16.6.1",
+    "form-data": "^4.0.4",
+    "next": "^15.5.0",
+    "node-fetch": "^3.3.2",
+    "openai": "^6.6.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
+  }
+}
