@@ -21,12 +21,14 @@ export const useSubmitCommitmentTransaction = () => {
         throw new Error("Wallet not connected");
       }
 
+      // Handle Aptos native wallets
       if (wallet.isAptosNativeWallet) {
         const transaction: InputTransactionData = {
           data: payload,
         };
-        const transactionSubmitted =
-          await signAndSubmitTransaction(transaction);
+        const transactionSubmitted = await signAndSubmitTransaction(
+          transaction
+        );
 
         await getAptosClient().waitForTransaction({
           transactionHash: transactionSubmitted.hash,
@@ -36,8 +38,8 @@ export const useSubmitCommitmentTransaction = () => {
         const privateKey = new Ed25519PrivateKey(
           PrivateKey.formatPrivateKey(
             process.env.NEXT_PUBLIC_SPONSOR_PRIVATE_KEY as string,
-            PrivateKeyVariants.Ed25519,
-          ),
+            PrivateKeyVariants.Ed25519
+          )
         );
         const sponsorAccount = Account.fromPrivateKey({ privateKey });
 
@@ -70,7 +72,7 @@ export const useSubmitCommitmentTransaction = () => {
         });
       }
     },
-    [account, wallet, signAndSubmitTransaction, signTransaction],
+    [account, wallet, signAndSubmitTransaction, signTransaction]
   );
 
   return { submitTransaction };

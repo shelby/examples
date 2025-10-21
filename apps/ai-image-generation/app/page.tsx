@@ -6,7 +6,7 @@ import { Header } from "@/components/Header";
 import { ImageGenerator } from "@/components/ImageGenerator";
 
 export default function Home() {
-  const [_, setRefreshTrigger] = useState(0);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleImageGenerated = () => {
     setRefreshTrigger((prev) => prev + 1);
@@ -27,7 +27,7 @@ export default function Home() {
           </div>
 
           <ImageGenerator onImageGenerated={handleImageGenerated} />
-          <GeneratedImages />
+          <GeneratedImages refreshTrigger={refreshTrigger} />
         </div>
       </main>
     </div>

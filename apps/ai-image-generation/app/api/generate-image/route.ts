@@ -1,38 +1,34 @@
 import { type NextRequest, NextResponse } from "next/server";
+import OpenAI from "openai";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-interface OpenAIImageResponse {
-  data?: { b64_json?: string; url?: string }[];
-}
+const openaiClient = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 async function genWithOpenAI(prompt: string): Promise<Buffer> {
   if (!OPENAI_API_KEY) throw new Error("Set OPENAI_API_KEY");
 
-  const resp = await fetch("https://api.openai.com/v1/images/generations", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({ model: "dall-e-3", prompt, size: "1024x1024" }),
+  const response = await openaiClient.images.generate({
+    model: "dall-e-3",
+    prompt: prompt,
+    size: "1024x1024",
+    response_format: "b64_json",
+    n: 1,
   });
 
-  const json = (await resp.json()) as OpenAIImageResponse;
-  const data = json.data?.[0];
-
-  if (data?.b64_json) {
-    return Buffer.from(data.b64_json, "base64");
+  if (!response.data) {
+    throw new Error("No image data received from OpenAI");
   }
 
-  if (data?.url) {
-    const img = await fetch(data.url);
-    if (!img.ok)
-      throw new Error(`Failed to fetch image from OpenAI URL: ${img.status}`);
-    return Buffer.from(await img.arrayBuffer());
+  const imageData = response.data[0];
+
+  if (!imageData.b64_json) {
+    throw new Error("No base64 image data received from OpenAI");
   }
 
-  throw new Error(`Unexpected OpenAI image response: ${JSON.stringify(json)}`);
+  return Buffer.from(imageData.b64_json, "base64");
 }
 
 export async function POST(request: NextRequest) {
@@ -56,7 +52,7 @@ export async function POST(request: NextRequest) {
     console.error(e);
     return NextResponse.json(
       { error: e?.message || "generation failed" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
