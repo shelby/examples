@@ -28,6 +28,7 @@ This Turborepo includes the following example applications:
 
 | Name | Description | Path & Links |
 | --- | --- | --- |
+| `@shelby-protocol/ai-image-generation` | Shelby AI image generation example | [`apps/ai-image-generation`](./apps/ai-image-generation) |
 | `@shelby-protocol/cross-chain-accounts` | Shelby cross chain accounts example | [`apps/cross-chain-accounts`](./apps/cross-chain-accounts) |
 | `@shelby-protocol/download-example` | An example app to demonstrate downloading blobs using the Shelby SDK | [`apps/download-blob`](./apps/download-blob) |
 | `@shelby-protocol/list-example` | An example app to demonstrate listing blobs using the Shelby SDK | [`apps/list-blob`](./apps/list-blob) |
