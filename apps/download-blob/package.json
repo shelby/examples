@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "@aptos-labs/ts-sdk": "^5.1.1",
-    "@shelby-protocol/sdk": "^0.0.4"
+    "@shelby-protocol/sdk": "latest"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
