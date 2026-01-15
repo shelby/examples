@@ -1,0 +1,22 @@
+[package]
+name = "ace_hook"
+version = "0.1.0"
+description = "ACE hook - allows users to prove access by signing a transaction for decryption key providers"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ace_hook"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.31.1"
+access_control = { path = "../access_control", features = ["no-entrypoint"] }
+

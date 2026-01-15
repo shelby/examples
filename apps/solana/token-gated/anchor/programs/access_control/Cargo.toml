@@ -1,0 +1,26 @@
+[package]
+name = "access_control"
+version = "0.1.0"
+description = "Token-gated access control for encrypted files on Shelby"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "access_control"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.31.1"
+sha3 = "0.10"
+
+[dev-dependencies]
+litesvm = "0.6.1"
+solana-sdk = "2.2"
+

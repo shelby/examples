@@ -6,9 +6,6 @@ yarn-error.log
 yarn-debug.log
 .env
 
-# Rust
-target
-
 # Build Outputs
 .next/
 out/
