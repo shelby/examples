@@ -1,0 +1,33 @@
+{
+  "name": "@shelby-protocol/solana-simple-example",
+  "version": "0.0.0",
+  "description": "Simple Shelby solana-kit example - full blob storage flow with Solana wallets",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 3002",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check .",
+    "fmt": "biome check . --write",
+    "test:once": "echo 'No tests configured'"
+  },
+  "dependencies": {
+    "@shelby-protocol/sdk": "latest",
+    "@shelby-protocol/solana-kit": "latest",
+    "@shelby-protocol/ui": "workspace:*",
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/web3.js": "^1.98.0",
+    "next": "^15.5.0",
+    "react": "^18.3.1",
+    "react-confetti": "^6.4.0",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
+  }
+}

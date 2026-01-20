@@ -5,6 +5,7 @@ npm-debug.log
 yarn-error.log
 yarn-debug.log
 .env
+tsconfig.tsbuildinfo
 
 # Build Outputs
 .next/

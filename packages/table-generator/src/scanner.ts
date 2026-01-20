@@ -12,28 +12,32 @@ function getPackageInfo(packagePath: string): PackageInfo | null {
       readFileSync(pkgJsonPath, "utf-8"),
     ) as PackageInfo;
     return pkgJson;
-  } catch (error) {
-    console.warn(
-      `Could not read package.json for ${packagePath}:`,
-      (error as Error).message,
-    );
+  } catch {
+    // No package.json found - this is expected for directories that contain nested apps
     return null;
   }
 }
 
 /**
- * Scan a directory for packages/apps
+ * Scan a directory for packages/apps, recursively checking subdirectories
+ * when a directory doesn't have a package.json
  */
 function scanDirectory(
   dirPath: string,
   type: "app" | "package",
   relativePath: string,
+  maxDepth = 2,
 ): MonorepoItem[] {
   const items: MonorepoItem[] = [];
+
+  if (maxDepth <= 0) {
+    return items;
+  }
 
   try {
     const dirs = readdirSync(dirPath);
     for (const dir of dirs) {
+      if (dir.startsWith(".")) continue;
       const fullPath = join(dirPath, dir);
       if (statSync(fullPath).isDirectory()) {
         const pkgInfo = getPackageInfo(fullPath);
@@ -62,6 +66,15 @@ function scanDirectory(
             homepage: pkgInfo.homepage,
             repository,
           });
+        } else {
+          // No package.json found, check subdirectories for nested apps
+          const nestedItems = scanDirectory(
+            fullPath,
+            type,
+            `${relativePath}/${dir}`,
+            maxDepth - 1,
+          );
+          items.push(...nestedItems);
         }
       }
     }
