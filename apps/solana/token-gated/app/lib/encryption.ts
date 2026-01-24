@@ -1,4 +1,3 @@
-import { ace } from "@aptos-labs/ace-sdk";
 import { config } from "./config";
 
 // ============================================================================
@@ -85,96 +84,47 @@ export async function decryptFile(
 // ============================================================================
 // ACE Threshold IBE (for key encryption - the "greenBox")
 // ============================================================================
+// NOTE: These functions are placeholders. The @aptos-labs/ace-sdk package
+// is not available in npm registry. Implement these with an alternative
+// threshold encryption library or restore when the package is available.
 
 /**
  * Create an ACE committee instance.
+ * @deprecated - Package @aptos-labs/ace-sdk not available in npm registry
  */
-export function createAceCommittee(): ace.Committee {
-  return new ace.Committee({
-    workerEndpoints: [...config.ace.workerEndpoints] as string[],
-    threshold: config.ace.threshold,
-  });
+export function createAceCommittee() {
+  throw new Error("ACE committee functionality is not available. @aptos-labs/ace-sdk package is not in npm registry.");
 }
 
 /**
  * Create an ACE contract ID for Solana.
+ * @deprecated - Package @aptos-labs/ace-sdk not available in npm registry
  */
-export function createAceContractId(): ace.ContractID {
-  return ace.ContractID.newSolana({
-    knownChainName: config.ace.solanaChainName,
-    programId: config.programs.aceHook,
-  });
+export function createAceContractId() {
+  throw new Error("ACE contract ID functionality is not available. @aptos-labs/ace-sdk package is not in npm registry.");
 }
 
 /**
  * Encrypt the redKey into a greenBox using threshold IBE.
  * This greenBox can only be decrypted by users who have purchased access.
+ * @deprecated - Package @aptos-labs/ace-sdk not available in npm registry
  */
 export async function encryptRedKey(
   redKey: Uint8Array,
   fullBlobNameBytes: Uint8Array
 ): Promise<Uint8Array> {
-  const committee = createAceCommittee();
-  const contractId = createAceContractId();
-
-  // Fetch encryption key from committee
-  const encryptionKeyResult = await ace.EncryptionKey.fetch({
-    committee,
-  });
-  const encryptionKey = encryptionKeyResult.unwrapOrThrow(
-    "Failed to fetch encryption key"
-  );
-
-  // Encrypt the redKey
-  const encryptResult = ace.encrypt({
-    encryptionKey,
-    contractId,
-    domain: fullBlobNameBytes,
-    plaintext: redKey,
-  }).unwrapOrThrow("Failed to encrypt redKey");
-
-  return encryptResult.ciphertext.toBytes();
+  throw new Error("ACE encryption functionality is not available. @aptos-labs/ace-sdk package is not in npm registry.");
 }
 
 /**
  * Decrypt the greenBox to recover the redKey using a proof-of-permission transaction.
  * @param signedTransactionBytes - Serialized signed transaction bytes (from any Solana SDK)
+ * @deprecated - Package @aptos-labs/ace-sdk not available in npm registry
  */
 export async function decryptGreenBox(
   greenBoxBytes: Uint8Array,
   fullBlobNameBytes: Uint8Array,
   signedTransactionBytes: Uint8Array
 ): Promise<Uint8Array> {
-  const committee = createAceCommittee();
-  const contractId = createAceContractId();
-
-  // Reconstruct the ciphertext from bytes
-  const greenBox = ace.Ciphertext.fromBytes(greenBoxBytes).unwrapOrThrow(
-    "Failed to parse greenBox ciphertext"
-  );
-
-  // Create proof of permission from the signed transaction bytes
-  const pop = ace.ProofOfPermission.createSolana({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    txn: signedTransactionBytes as any,
-  });
-
-  // Fetch decryption key from committee
-  const decryptionKeyResult = await ace.DecryptionKey.fetch({
-    committee,
-    contractId,
-    domain: fullBlobNameBytes,
-    proof: pop,
-  });
-  const decryptionKey = decryptionKeyResult.unwrapOrThrow(
-    "Failed to fetch decryption key"
-  );
-
-  // Decrypt the greenBox
-  const plaintext = ace.decrypt({
-    decryptionKey,
-    ciphertext: greenBox,
-  }).unwrapOrThrow("Failed to decrypt greenBox");
-
-  return plaintext;
+  throw new Error("ACE decryption functionality is not available. @aptos-labs/ace-sdk package is not in npm registry.");
 }
