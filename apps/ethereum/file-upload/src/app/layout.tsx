@@ -4,7 +4,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Shelby File Upload",
-  description: "Upload files to decentralized storage using your Ethereum wallet",
+  description:
+    "Upload files to decentralized storage using your Ethereum wallet",
 };
 
 export default function RootLayout({
@@ -20,4 +21,3 @@ export default function RootLayout({
     </html>
   );
 }
-

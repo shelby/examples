@@ -1,17 +1,17 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
-import { useWalletClient, useAccount } from "wagmi";
 import {
-  useStorageAccount,
   Network,
+  useStorageAccount,
 } from "@shelby-protocol/ethereum-kit/react";
 import { useUploadBlobs } from "@shelby-protocol/react";
 import { ShelbyClient } from "@shelby-protocol/sdk/browser";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useAccount, useWalletClient } from "wagmi";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 const SHELBY_API_KEY = process.env.NEXT_PUBLIC_SHELBY_API_KEY || "";
 
@@ -20,6 +20,15 @@ export function FileUploader() {
   const { data: wallet } = useWalletClient();
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const clearFile = useCallback(() => {
+    setFile(null);
+    // Reset the input value so the same file can be selected again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, []);
 
   const shelbyClient = useMemo(
     () =>
@@ -27,14 +36,14 @@ export function FileUploader() {
         network: Network.SHELBYNET,
         apiKey: SHELBY_API_KEY,
       }),
-    []
+    [],
   );
 
   const { storageAccountAddress, signAndSubmitTransaction } = useStorageAccount(
     {
       client: shelbyClient,
       wallet,
-    }
+    },
   );
 
   const { mutateAsync: uploadBlobs, isPending } = useUploadBlobs({
@@ -67,7 +76,7 @@ export function FileUploader() {
         setFile(selectedFile);
       }
     },
-    []
+    [],
   );
 
   const handleUpload = async () => {
@@ -109,7 +118,7 @@ export function FileUploader() {
           </span>
         ),
       });
-      setFile(null);
+      clearFile();
     } catch (error) {
       console.error("Upload error:", error);
       toast.error("Upload failed", {
@@ -124,7 +133,7 @@ export function FileUploader() {
     const k = 1024;
     const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+    return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
   };
 
   if (!isConnected) {
@@ -137,6 +146,7 @@ export function FileUploader() {
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -170,6 +180,7 @@ export function FileUploader() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -193,10 +204,11 @@ export function FileUploader() {
       {/* Upload Area */}
       <Card className="bg-slate-900/50 border-slate-800">
         <CardContent className="p-6">
-          <div
+          <section
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
+            aria-label="File drop zone"
             className={`
               border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer
               ${
@@ -207,6 +219,7 @@ export function FileUploader() {
             `}
           >
             <input
+              ref={fileInputRef}
               type="file"
               onChange={handleFileSelect}
               className="hidden"
@@ -220,6 +233,7 @@ export function FileUploader() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -236,7 +250,7 @@ export function FileUploader() {
                 or click to browse from your computer
               </p>
             </label>
-          </div>
+          </section>
 
           {/* Selected File */}
           {file && (
@@ -248,6 +262,7 @@ export function FileUploader() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -266,7 +281,7 @@ export function FileUploader() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setFile(null)}
+                  onClick={clearFile}
                   disabled={isPending}
                   className="text-slate-400 hover:text-white"
                 >
@@ -275,6 +290,7 @@ export function FileUploader() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -312,6 +328,7 @@ export function FileUploader() {
                   className="animate-spin w-4 h-4"
                   fill="none"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <circle
                     className="opacity-25"

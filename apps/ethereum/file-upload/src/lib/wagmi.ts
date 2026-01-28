@@ -1,11 +1,11 @@
-import { http, createConfig } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
+  coinbaseWallet,
   injectedWallet,
   metaMaskWallet,
-  coinbaseWallet,
 } from "@rainbow-me/rainbowkit/wallets";
-import { connectorsForWallets } from "@rainbow-me/rainbowkit";
+import { createConfig, http } from "wagmi";
+import { mainnet, sepolia } from "wagmi/chains";
 
 // Configure wallets - only browser extensions, no WalletConnect
 const connectors = connectorsForWallets(
@@ -18,7 +18,7 @@ const connectors = connectorsForWallets(
   {
     appName: "Shelby File Upload",
     projectId: "none", // Not using WalletConnect
-  }
+  },
 );
 
 export const config = createConfig({
@@ -36,4 +36,3 @@ declare module "wagmi" {
     config: typeof config;
   }
 }
-
