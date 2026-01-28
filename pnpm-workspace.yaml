@@ -1,6 +1,7 @@
 packages:
   - apps/*
   - apps/solana/*
+  - apps/ethereum/*
   - packages/*
 onlyBuiltDependencies:
   - "@biomejs/biome"
