@@ -92,7 +92,15 @@ export default function Home() {
 
       // Use string-based calculation to avoid floating point precision errors
       const priceFloat = parseFloat(activeVideo.price || "0");
-      if (isNaN(priceFloat) || priceFloat <= 0) {
+
+      // Allow free view if price is exactly 0 (for demo videos)
+      if (priceFloat === 0) {
+        setIsLocked(false);
+        toast.success("Demo content unlocked for free!");
+        return;
+      }
+
+      if (isNaN(priceFloat) || priceFloat < 0) {
         toast.error("Invalid video price.");
         setIsLoading(false);
         return;
@@ -237,7 +245,7 @@ export default function Home() {
                     className="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar pb-8 pt-2 px-1"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                   >
-                    {filteredVideos.map((vid, idx) => {
+                    {filteredVideos.map((vid) => {
                       const isOwner = account?.address && vid.owner === account.address.toString();
 
                       return (

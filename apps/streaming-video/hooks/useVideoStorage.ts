@@ -13,7 +13,7 @@ const DEFAULT_VIDEOS: VideoMetadata[] = [
     {
         blobName: "big_buck_bunny",
         description: "Big Buck Bunny - Open Source Animation",
-        price: "0.1",
+        price: "0",
         timestamp: Date.now(),
         owner: "0x1",
         url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
@@ -21,7 +21,7 @@ const DEFAULT_VIDEOS: VideoMetadata[] = [
     {
         blobName: "sintel",
         description: "Sintel - Fantasy Short Film",
-        price: "0.2",
+        price: "0",
         timestamp: Date.now() - 100000,
         owner: "0x1",
         url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
