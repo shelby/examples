@@ -153,8 +153,8 @@ importers:
         specifier: ^2.2.10
         version: 2.2.10(@tanstack/react-query@5.90.20(react@19.2.3))(@types/react@19.2.10)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)(viem@2.45.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.3.5))(wagmi@3.4.1(@metamask/sdk@0.34.0(bufferutil@4.1.0)(utf-8-validate@5.0.10))(@tanstack/query-core@5.90.20)(@tanstack/react-query@5.90.20(react@19.2.3))(@types/react@19.2.10)(ox@0.11.3(typescript@5.9.3)(zod@4.3.5))(react@19.2.3)(typescript@5.9.3)(viem@2.45.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.3.5)))
       '@shelby-protocol/ethereum-kit':
-        specifier: 0.1.1-beta.0
-        version: 0.1.1-beta.0(@wallet-standard/core@1.1.1)(bufferutil@4.1.0)(got@11.8.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.3.5))(zod@4.3.5)
+        specifier: 0.1.1
+        version: 0.1.1(@wallet-standard/core@1.1.1)(bufferutil@4.1.0)(got@11.8.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.3.5))(zod@4.3.5)
       '@shelby-protocol/react':
         specifier: ^0.0.4
         version: 0.0.4(@aptos-labs/ts-sdk@5.2.1(got@11.8.6))(@shelby-protocol/sdk@0.0.9(@aptos-labs/ts-sdk@5.2.1(got@11.8.6)))(@tanstack/react-query@5.90.20(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)
@@ -1936,8 +1936,8 @@ packages:
   '@shelby-protocol/clay-codes@0.0.2':
     resolution: {integrity: sha512-kvh59DNO84NjDM/TEJwWmTsrJi859wLEmAMuIa8xM417/qPgi+gjkg4UweUu2LDXdkt4kDnJdreB7ziyJJpglw==}
 
-  '@shelby-protocol/ethereum-kit@0.1.1-beta.0':
-    resolution: {integrity: sha512-9oM/9KFRrEenc+02auw8P26Cv+2UMQDWduouEMAk+dAgIXPhCXUpnAisH6m81npac0h/+hGTmmZ3rBJw1cYETw==}
+  '@shelby-protocol/ethereum-kit@0.1.1':
+    resolution: {integrity: sha512-p14YBvLPalBs0It7Ee0OwvkWfYOb3rxblFnwQ0gofAbL5DR8ALGzWBEQTcT03vr3eqRD0g498d8MwjEYe/w75g==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -6819,7 +6819,7 @@ snapshots:
 
   '@shelby-protocol/clay-codes@0.0.2': {}
 
-  '@shelby-protocol/ethereum-kit@0.1.1-beta.0(@wallet-standard/core@1.1.1)(bufferutil@4.1.0)(got@11.8.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.3.5))(zod@4.3.5)':
+  '@shelby-protocol/ethereum-kit@0.1.1(@wallet-standard/core@1.1.1)(bufferutil@4.1.0)(got@11.8.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.45.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.3.5))(zod@4.3.5)':
     dependencies:
       '@aptos-labs/derived-wallet-ethereum': 0.9.0(@aptos-labs/ts-sdk@5.2.1(got@11.8.6))(@wallet-standard/core@1.1.1)(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.3.5)
       '@aptos-labs/gas-station-client': 2.0.3(got@11.8.6)
