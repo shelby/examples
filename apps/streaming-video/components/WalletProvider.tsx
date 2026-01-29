@@ -16,7 +16,7 @@ export const WalletProvider = ({ children }: PropsWithChildren) => {
       dappConfig={{
         network: Network.SHELBYNET,
         aptosApiKeys: {
-          devnet: process.env.NEXT_PUBLIC_SHELBY_API_KEY,
+          shelbynet: process.env.NEXT_PUBLIC_SHELBY_API_KEY,
         },
       }}
       onError={(error) => {

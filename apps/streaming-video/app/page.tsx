@@ -62,6 +62,12 @@ export default function Home() {
     return `https://api.shelbynet.shelby.xyz/shelby/v1/blobs/${owner}/${video.blobName}`;
   };
 
+  const getVideoTitle = (blobName: string) => {
+    // Remove timestamp suffix (last segment after final hyphen) and format
+    const nameWithoutTimestamp = blobName.replace(/-\d+$/, '');
+    return nameWithoutTimestamp.replace(/_/g, ' ');
+  };
+
   const handleUnlock = async () => {
     if (!account) {
       toast.error("Please connect your wallet first!");
@@ -77,12 +83,14 @@ export default function Home() {
       setIsLoading(true);
       setLoadingText("Processing Payment on Aptos...");
 
-      const amountInOctas = Math.floor(parseFloat(activeVideo.price || "0") * 100000000);
-      if (amountInOctas <= 0) {
+      // Use string-based calculation to avoid floating point precision errors
+      const priceFloat = parseFloat(activeVideo.price || "0");
+      if (isNaN(priceFloat) || priceFloat <= 0) {
         toast.error("Invalid video price.");
         setIsLoading(false);
         return;
       }
+      const amountInOctas = Math.round(priceFloat * 100000000);
 
       const transactionResponse = await signAndSubmitTransaction({
         data: {
@@ -108,12 +116,14 @@ export default function Home() {
       toast.error(error.message || "Payment failed. Please try again.");
     } finally {
       setIsLoading(false);
+      setLoadingText(""); // Clear loading text to prevent stale state
     }
   };
 
   const handleSelectVideo = (video: VideoMetadata) => {
     setActiveVideo(video);
     setIsLocked(true);
+    setLoadingText(""); // Clear any stale loading text
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -167,7 +177,7 @@ export default function Home() {
                     isLocked={isLocked}
                     onUnlock={handleUnlock}
                     loadingText={loadingText}
-                    title={activeVideo.blobName.split('-')[0].replace(/_/g, ' ')}
+                    title={getVideoTitle(activeVideo.blobName)}
                     description={activeVideo.description}
                     price={activeVideo.price}
                   />
@@ -272,7 +282,7 @@ export default function Home() {
                           {/* Bottom 20%: Info */}
                           <div className="h-[20%] w-full px-4 flex flex-col justify-center bg-gradient-to-t from-gray-900 to-black border-t border-white/5">
                             <h3 className="text-gray-200 font-bold truncate text-sm leading-tight group-hover:text-blue-400 transition-colors">
-                              {vid.blobName.replace(/\.[^/.]+$/, "").replace(/_/g, ' ')}
+                              {getVideoTitle(vid.blobName)}
                             </h3>
                             <div className="flex items-center gap-2 text-[10px] text-gray-500 mt-1">
                               <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
