@@ -1,0 +1,46 @@
+{
+  "name": "solana-file-upload",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint",
+    "start": "next start"
+  },
+  "description": "Simple Solana file upload to Shelby using @solana/react-hooks",
+  "keywords": [
+    "nextjs",
+    "react",
+    "solana-kit",
+    "shelby",
+    "tailwind",
+    "typescript"
+  ],
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@shelby-protocol/react": "latest",
+    "@shelby-protocol/sdk": "latest",
+    "@shelby-protocol/solana-kit": "latest",
+    "@solana/client": "^1.2.0",
+    "@solana/kit": "^5.1.0",
+    "@solana/react-hooks": "^1.1.5",
+    "@tanstack/react-query": "^5.90.16",
+    "next": "16.0.10",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.10",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
