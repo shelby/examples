@@ -43,8 +43,9 @@ export const useVideoStorage = (trigger?: number) => {
                 if (Array.isArray(parsed)) {
                     setVideos(parsed);
                 } else {
-                    // Invalid format, reset
+                    // Invalid format, reset and clean up
                     setVideos(DEFAULT_VIDEOS);
+                    localStorage.setItem('shelby_videos_v2', JSON.stringify(DEFAULT_VIDEOS));
                 }
             } else {
                 setVideos(DEFAULT_VIDEOS);
@@ -53,6 +54,7 @@ export const useVideoStorage = (trigger?: number) => {
         } catch (e) {
             console.error("Storage error:", e);
             setVideos(DEFAULT_VIDEOS);
+            localStorage.setItem('shelby_videos_v2', JSON.stringify(DEFAULT_VIDEOS));
         }
     };
 
