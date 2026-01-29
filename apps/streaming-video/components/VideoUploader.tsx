@@ -17,7 +17,7 @@ export const VideoUploader = ({ onSuccess }: { onSuccess?: () => void }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const { uploadVideo, isUploading } = useUploadVideo();
-    const { addVideo } = useVideoStorage(); // No trigger needed here
+    const { addVideo } = useVideoStorage();
     const { account } = useWallet();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,13 +33,31 @@ export const VideoUploader = ({ onSuccess }: { onSuccess?: () => void }) => {
             return;
         }
 
+        // Capture values now to avoid race conditions if user edits inputs during upload
+        const capturedPrice = price;
+        const capturedDescription = description || "Uploaded Video";
+
+        // Validate price
+        const priceFloat = parseFloat(capturedPrice);
+        if (isNaN(priceFloat) || priceFloat <= 0) {
+            toast.error("Please enter a valid price greater than 0.");
+            return;
+        }
+
+        // Check for minimum octa amount (matching page.tsx)
+        const amountInOctas = Math.round(priceFloat * 100000000);
+        if (amountInOctas < 1) {
+            toast.error("Price too small. Minimum is 0.00000001 APT.");
+            return;
+        }
+
         try {
             const result = await uploadVideo(file);
             if (result && result.blobName) {
                 setUploadedBlobName(result.blobName);
 
                 if (account?.address) {
-                    addVideo(result.blobName, description || "Uploaded Video", price, account.address.toString());
+                    addVideo(result.blobName, capturedDescription, capturedPrice, account.address.toString());
                 }
 
                 if (onSuccess) {
@@ -53,7 +71,6 @@ export const VideoUploader = ({ onSuccess }: { onSuccess?: () => void }) => {
                 toast.success("Video uploaded successfully!");
             }
         } catch (e) {
-            // Error handling is inside default useUploadVideo hook mostly, but if it throws:
             console.error(e);
         }
     };
@@ -117,7 +134,8 @@ export const VideoUploader = ({ onSuccess }: { onSuccess?: () => void }) => {
                             step="0.01"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                            className="bg-black/20 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50"
+                            disabled={isUploading}
+                            className="bg-black/20 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 disabled:opacity-50"
                         />
                     </div>
                     <div className="space-y-2">
@@ -126,7 +144,8 @@ export const VideoUploader = ({ onSuccess }: { onSuccess?: () => void }) => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Short description..."
-                            className="bg-black/20 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50"
+                            disabled={isUploading}
+                            className="bg-black/20 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 disabled:opacity-50"
                         />
                     </div>
                 </div>
