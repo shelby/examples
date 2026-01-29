@@ -75,7 +75,7 @@ export default function Home() {
     }
 
     // Allow owners to view their own content without payment
-    if (activeVideo?.owner === account.address) {
+    if (activeVideo?.owner === account.address.toString()) {
       setIsLocked(false);
       toast.success("Content unlocked! (You own this video)");
       return;

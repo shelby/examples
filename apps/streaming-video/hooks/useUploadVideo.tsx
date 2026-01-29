@@ -13,10 +13,13 @@ export const useUploadVideo = () => {
     const [isUploading, setIsUploading] = useState(false);
 
     const uploadVideo = async (file: File) => {
-        if (!account) throw new Error("Wallet not connected");
-
         setIsUploading(true);
         try {
+            if (!account) {
+                toast.error("Please connect your wallet first!");
+                throw new Error("Wallet not connected");
+            }
+
             const client = getShelbyClient();
 
             // DẪN CHỨNG: Trên Shelbynet, module nằm tại địa chỉ này
@@ -75,7 +78,7 @@ export const useUploadVideo = () => {
                 blobData: new Uint8Array(buffer),
             });
 
-            toast.success("Upload successful!");
+            // Success toast is shown by VideoUploader component
             return { blobName, transactionHash: response.hash };
 
         } catch (error: any) {
