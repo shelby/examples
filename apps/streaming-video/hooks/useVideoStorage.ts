@@ -6,22 +6,25 @@ export interface VideoMetadata {
     price: string;
     timestamp: number;
     owner?: string;
+    url?: string; // Optional: full URL for external videos
 }
 
 const DEFAULT_VIDEOS: VideoMetadata[] = [
     {
-        blobName: "demo_vid_01",
-        description: "Shelby Protocol Introduction - The future of decentralized streaming",
+        blobName: "big_buck_bunny",
+        description: "Big Buck Bunny - Open Source Animation",
         price: "0.1",
         timestamp: Date.now(),
-        owner: "0x1"
+        owner: "0x1",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
     },
     {
-        blobName: "nature_4k",
-        description: "Relaxing Nature Sounds & 4K Scenery",
-        price: "0.5",
+        blobName: "sintel",
+        description: "Sintel - Fantasy Short Film",
+        price: "0.2",
         timestamp: Date.now() - 100000,
-        owner: "0x1"
+        owner: "0x1",
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
     }
 ];
 

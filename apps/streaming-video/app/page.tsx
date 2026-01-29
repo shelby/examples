@@ -49,6 +49,15 @@ export default function Home() {
   };
 
   const getPlayUrl = (video: VideoMetadata) => {
+    // If video has a direct URL, use it
+    if (video.url) {
+      return video.url;
+    }
+    // If blobName is already a full URL, use it directly
+    if (video.blobName.startsWith('http')) {
+      return video.blobName;
+    }
+    // Otherwise, construct Shelby API URL
     const owner = video.owner || "0x1";
     return `https://api.shelbynet.shelby.xyz/shelby/v1/blobs/${owner}/${video.blobName}`;
   };
