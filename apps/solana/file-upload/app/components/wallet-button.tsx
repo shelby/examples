@@ -29,6 +29,7 @@ export function WalletButton() {
   // Close modal when connection succeeds
   useEffect(() => {
     if (status === "connected") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsModalOpen(false);
     }
   }, [status]);

@@ -129,8 +129,8 @@ export function FileUpload() {
       <div className="space-y-1">
         <p className="text-lg font-semibold">Upload File to Shelby</p>
         <p className="text-sm text-muted">
-          Upload any file to Shelby's decentralized storage using your Solana
-          wallet.
+          Upload any file to Shelby&apos;s decentralized storage using your
+          Solana wallet.
         </p>
       </div>
 
