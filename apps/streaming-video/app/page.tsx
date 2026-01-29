@@ -74,6 +74,13 @@ export default function Home() {
       return;
     }
 
+    // Allow owners to view their own content without payment
+    if (activeVideo?.owner === account.address) {
+      setIsLocked(false);
+      toast.success("Content unlocked! (You own this video)");
+      return;
+    }
+
     if (!activeVideo?.owner) {
       toast.error("Video owner information is missing. Cannot process payment.");
       return;
@@ -91,6 +98,13 @@ export default function Home() {
         return;
       }
       const amountInOctas = Math.round(priceFloat * 100000000);
+
+      // Ensure the amount is at least 1 octa to prevent free unlocks
+      if (amountInOctas < 1) {
+        toast.error("Price too small. Minimum is 0.00000001 APT.");
+        setIsLoading(false);
+        return;
+      }
 
       const transactionResponse = await signAndSubmitTransaction({
         data: {
@@ -228,7 +242,7 @@ export default function Home() {
 
                       return (
                         <div
-                          key={idx}
+                          key={vid.blobName}
                           onClick={() => handleSelectVideo(vid)}
                           className="
                             shrink-0 
