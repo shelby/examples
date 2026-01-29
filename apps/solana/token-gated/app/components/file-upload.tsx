@@ -31,13 +31,10 @@ export function FileUpload() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
 
-  const { storageAccountAddress, signAndSubmitTransaction } = useStorageAccount(
-    {
-      client: shelbyClient,
-      solanaAddress: wallet?.account.address.toString(),
-      signMessageFn: wallet?.signMessage,
-    }
-  );
+  const { storageAccountAddress, signAndSubmitTransaction } = useStorageAccount({
+    client: shelbyClient,
+    wallet,
+  });
 
   const { mutateAsync: uploadBlobs } = useUploadBlobs({
     client: shelbyClient,

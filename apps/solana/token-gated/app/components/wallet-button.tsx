@@ -23,8 +23,7 @@ export function WalletButton() {
   // Storage account derived from the connected wallet (for dropdown display)
   const { storageAccountAddress } = useStorageAccount({
     client: shelbyClient,
-    solanaAddress: walletAddress,
-    signMessageFn: wallet?.signMessage,
+    wallet,
   });
 
   // Close modal when connection succeeds
