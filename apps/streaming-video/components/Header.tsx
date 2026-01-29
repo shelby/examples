@@ -116,16 +116,19 @@ export const Header = () => {
             </div>
           ) : (
             <div className="flex gap-2">
-              {wallets.slice(0, 1).map((wallet) => (
-                <Button
-                  key={wallet.name}
-                  onClick={() => connect(wallet.name)}
-                  className="bg-blue-600 text-white hover:bg-blue-700 font-bold shadow-lg shadow-blue-500/20"
-                  size="sm"
-                >
-                  Connect Wallet
-                </Button>
-              ))}
+              {wallets.length > 0 && (() => {
+                const preferredWallet = wallets.find(w => w.name.toLowerCase().includes('petra')) || wallets[0];
+                return (
+                  <Button
+                    key={preferredWallet.name}
+                    onClick={() => connect(preferredWallet.name)}
+                    className="bg-blue-600 text-white hover:bg-blue-700 font-bold shadow-lg shadow-blue-500/20"
+                    size="sm"
+                  >
+                    Connect Wallet
+                  </Button>
+                );
+              })()}
               {wallets.length === 0 && (
                 <Button onClick={() => window.open("https://petra.app/", "_blank")} size="sm">
                   Install Wallet

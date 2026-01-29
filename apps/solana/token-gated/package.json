@@ -35,7 +35,6 @@
     "@solana/react-hooks": "^1.1.5",
     "@solana/web3.js": "^1.98.4",
     "@tanstack/react-query": "^5.90.16",
-    "@aptos-labs/ace-sdk": "^0.1.0",
     "next": "16.0.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
