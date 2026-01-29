@@ -1,0 +1,32 @@
+{
+  "name": "@shelby-protocol/streaming-video",
+  "version": "0.0.0",
+  "description": "Shelby Streaming Video example with Gating",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 3005",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check .",
+    "fmt": "biome check . --write"
+  },
+  "dependencies": {
+    "@aptos-labs/derived-wallet-ethereum": "^0.8.5",
+    "@aptos-labs/derived-wallet-solana": "^0.10.0",
+    "@aptos-labs/ts-sdk": "^5.1.1",
+    "@aptos-labs/wallet-adapter-react": "^8.1.0",
+    "@shelby-protocol/sdk": "latest",
+    "@shelby-protocol/ui": "workspace:*",
+    "lucide-react": "^0.378.0",
+    "next": "^15.5.7",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-player": "^2.16.1",
+    "sonner": "^1.4.41"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
+  }
+}
