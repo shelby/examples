@@ -22,8 +22,7 @@
   },
   "pnpm": {
     "overrides": {
-      "keyv": "npm:@keyvhq/core@~1.6.26",
-      "@aptos-labs/ace-sdk": "npm:noop@latest"
+      "keyv": "npm:@keyvhq/core@~1.6.26"
     },
     "onlyBuiltDependencies": [
       "@biomejs/biome",
