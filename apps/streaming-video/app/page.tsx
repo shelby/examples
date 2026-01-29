@@ -68,28 +68,40 @@ export default function Home() {
       return;
     }
 
+    if (!activeVideo?.owner) {
+      toast.error("Video owner information is missing. Cannot process payment.");
+      return;
+    }
+
     try {
       setIsLoading(true);
       setLoadingText("Processing Payment on Aptos...");
+
+      const amountInOctas = Math.floor(parseFloat(activeVideo.price || "0") * 100000000);
+      if (amountInOctas <= 0) {
+        toast.error("Invalid video price.");
+        setIsLoading(false);
+        return;
+      }
 
       const transactionResponse = await signAndSubmitTransaction({
         data: {
           function: "0x1::coin::transfer",
           typeArguments: ["0x1::aptos_coin::AptosCoin"],
-          functionArguments: [activeVideo?.owner || "0xa7c2ebd36b9c9f08685124925828ae15143097c5df38274718507746537754b2", Math.floor((parseFloat(activeVideo?.price || "0") * 100000000)) || 1000],
+          functionArguments: [activeVideo.owner, amountInOctas],
         },
       });
 
       console.log("Transaction Hash:", transactionResponse.hash);
-      setLoadingText("Verifying Payment on ShelbyNet...");
 
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      setLoadingText("Payment Confirmed! Fetching Stream...");
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // NOTE: This is a demo implementation. In production, you should:
+      // 1. Wait for transaction confirmation on-chain
+      // 2. Verify the payment was successful and went to the correct address
+      // 3. Only unlock content after verification
+      // Current implementation unlocks immediately after transaction submission
 
       setIsLocked(false);
-      toast.success("Content Unlocked Successfully!");
+      toast.success("Content Unlocked! Transaction submitted: " + transactionResponse.hash.slice(0, 10) + "...");
 
     } catch (error: any) {
       console.error(error);

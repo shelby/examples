@@ -26,6 +26,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@aptos-labs/ace-sdk": "^0.1.0",
     "@coral-xyz/anchor": "^0.31.1",
     "@shelby-protocol/react": "latest",
     "@shelby-protocol/sdk": "latest",
