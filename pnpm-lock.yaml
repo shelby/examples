@@ -6,6 +6,7 @@ settings:
 
 overrides:
   keyv: npm:@keyvhq/core@~1.6.26
+  '@aptos-labs/ace-sdk': npm:noop@latest
 
 importers:
 
@@ -58,7 +59,7 @@ importers:
         version: 3.3.2
       openai:
         specifier: ^6.6.0
-        version: 6.16.0(ws@8.18.3(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@4.3.5)
+        version: 6.16.0(ws@8.19.0(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@4.3.5)
       react:
         specifier: ^19.1.0
         version: 19.2.3
@@ -8568,11 +8569,6 @@ snapshots:
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
-
-  openai@6.16.0(ws@8.18.3(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@4.3.5):
-    optionalDependencies:
-      ws: 8.18.3(bufferutil@4.1.0)(utf-8-validate@5.0.10)
-      zod: 4.3.5
 
   openai@6.16.0(ws@8.19.0(bufferutil@4.1.0)(utf-8-validate@5.0.10))(zod@4.3.5):
     optionalDependencies:
