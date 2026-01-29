@@ -13,16 +13,7 @@
         "Purchase access to a blob by paying the owner.",
         "Creates a receipt PDA that proves the buyer has paid."
       ],
-      "discriminator": [
-        21,
-        93,
-        113,
-        154,
-        193,
-        160,
-        242,
-        168
-      ],
+      "discriminator": [21, 93, 113, 154, 193, 160, 242, 168],
       "accounts": [
         {
           "name": "blob_metadata",
@@ -31,19 +22,7 @@
               {
                 "kind": "const",
                 "value": [
-                  98,
-                  108,
-                  111,
-                  98,
-                  95,
-                  109,
-                  101,
-                  116,
-                  97,
-                  100,
-                  97,
-                  116,
-                  97
+                  98, 108, 111, 98, 95, 109, 101, 116, 97, 100, 97, 116, 97
                 ]
               },
               {
@@ -64,14 +43,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  97,
-                  99,
-                  99,
-                  101,
-                  115,
-                  115
-                ]
+                "value": [97, 99, 99, 101, 115, 115]
               },
               {
                 "kind": "arg",
@@ -106,10 +78,7 @@
         {
           "name": "storage_account_address",
           "type": {
-            "array": [
-              "u8",
-              32
-            ]
+            "array": ["u8", 32]
           }
         },
         {
@@ -124,16 +93,7 @@
         "Register a new encrypted blob with its greenBox and price.",
         "Called by the file owner after uploading encrypted content to Shelby."
       ],
-      "discriminator": [
-        121,
-        87,
-        124,
-        41,
-        94,
-        254,
-        44,
-        87
-      ],
+      "discriminator": [121, 87, 124, 41, 94, 254, 44, 87],
       "accounts": [
         {
           "name": "blob_metadata",
@@ -143,19 +103,7 @@
               {
                 "kind": "const",
                 "value": [
-                  98,
-                  108,
-                  111,
-                  98,
-                  95,
-                  109,
-                  101,
-                  116,
-                  97,
-                  100,
-                  97,
-                  116,
-                  97
+                  98, 108, 111, 98, 95, 109, 101, 116, 97, 100, 97, 116, 97
                 ]
               },
               {
@@ -183,10 +131,7 @@
         {
           "name": "storage_account_address",
           "type": {
-            "array": [
-              "u8",
-              32
-            ]
+            "array": ["u8", 32]
           }
         },
         {
@@ -211,29 +156,11 @@
   "accounts": [
     {
       "name": "BlobMetadata",
-      "discriminator": [
-        93,
-        126,
-        241,
-        85,
-        221,
-        131,
-        119,
-        253
-      ]
+      "discriminator": [93, 126, 241, 85, 221, 131, 119, 253]
     },
     {
       "name": "Receipt",
-      "discriminator": [
-        39,
-        154,
-        73,
-        106,
-        80,
-        102,
-        145,
-        153
-      ]
+      "discriminator": [39, 154, 73, 106, 80, 102, 145, 153]
     }
   ],
   "errors": [
@@ -255,9 +182,7 @@
         "fields": [
           {
             "name": "owner",
-            "docs": [
-              "The Solana owner who registered this blob"
-            ],
+            "docs": ["The Solana owner who registered this blob"],
             "type": "pubkey"
           },
           {
@@ -276,16 +201,12 @@
           },
           {
             "name": "seqnum",
-            "docs": [
-              "Sequence number for tracking updates"
-            ],
+            "docs": ["Sequence number for tracking updates"],
             "type": "u64"
           },
           {
             "name": "price",
-            "docs": [
-              "Price in lamports to purchase access"
-            ],
+            "docs": ["Price in lamports to purchase access"],
             "type": "u64"
           }
         ]
@@ -293,9 +214,7 @@
     },
     {
       "name": "Receipt",
-      "docs": [
-        "Receipt proving a buyer has purchased access to a blob."
-      ],
+      "docs": ["Receipt proving a buyer has purchased access to a blob."],
       "type": {
         "kind": "struct",
         "fields": [

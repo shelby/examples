@@ -126,12 +126,14 @@ export async function encryptRedKey(
   );
 
   // Encrypt the redKey
-  const encryptResult = ace.encrypt({
-    encryptionKey,
-    contractId,
-    domain: fullBlobNameBytes,
-    plaintext: redKey,
-  }).unwrapOrThrow("Failed to encrypt redKey");
+  const encryptResult = ace
+    .encrypt({
+      encryptionKey,
+      contractId,
+      domain: fullBlobNameBytes,
+      plaintext: redKey,
+    })
+    .unwrapOrThrow("Failed to encrypt redKey");
 
   return encryptResult.ciphertext.toBytes();
 }
@@ -171,10 +173,12 @@ export async function decryptGreenBox(
   );
 
   // Decrypt the greenBox
-  const plaintext = ace.decrypt({
-    decryptionKey,
-    ciphertext: greenBox,
-  }).unwrapOrThrow("Failed to decrypt greenBox");
+  const plaintext = ace
+    .decrypt({
+      decryptionKey,
+      ciphertext: greenBox,
+    })
+    .unwrapOrThrow("Failed to decrypt greenBox");
 
   return plaintext;
 }

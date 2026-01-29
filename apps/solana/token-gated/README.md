@@ -11,6 +11,8 @@ This example shows how to build a token-gated content system where:
 
 The encryption uses ACE threshold cryptography—the decryption key is only released when a buyer proves they have purchased access via a signed Solana transaction.
 
+> **Note:** ACE is a temporary access control solution for this example. Once a more production-ready access control system is available, this example will be updated accordingly.
+
 ## Quick Start
 
 ```bash

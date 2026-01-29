@@ -43,8 +43,11 @@ export const config = {
       10
     ),
     /** Solana chain name for ACE contract ID */
-    solanaChainName: (process.env.NEXT_PUBLIC_ACE_CHAIN_NAME ||
-      "testnet") as "mainnet-beta" | "testnet" | "devnet" | "localnet",
+    solanaChainName: (process.env.NEXT_PUBLIC_ACE_CHAIN_NAME || "testnet") as
+      | "mainnet-beta"
+      | "testnet"
+      | "devnet"
+      | "localnet",
   },
 
   // Shelby storage

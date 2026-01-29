@@ -14,16 +14,7 @@
         "This function is called by consumers who sign a transaction proving their access.",
         "The signed transaction can then be presented to decryption key providers as proof of permission."
       ],
-      "discriminator": [
-        236,
-        161,
-        40,
-        115,
-        1,
-        219,
-        223,
-        121
-      ],
+      "discriminator": [236, 161, 40, 115, 1, 219, 223, 121],
       "accounts": [
         {
           "name": "blob_metadata"
