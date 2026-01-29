@@ -65,24 +65,38 @@ export const useVideoStorage = (trigger?: number) => {
             timestamp: Date.now()
         };
 
-        // Always read fresh state from localStorage to ensure consistency
-        const currentStored = localStorage.getItem('shelby_videos_v2');
-        let currentVideos = currentStored ? JSON.parse(currentStored) : DEFAULT_VIDEOS;
-        if (!Array.isArray(currentVideos)) currentVideos = DEFAULT_VIDEOS;
+        try {
+            // Always read fresh state from localStorage to ensure consistency
+            const currentStored = localStorage.getItem('shelby_videos_v2');
+            let currentVideos = currentStored ? JSON.parse(currentStored) : DEFAULT_VIDEOS;
+            if (!Array.isArray(currentVideos)) currentVideos = DEFAULT_VIDEOS;
 
-        const updatedVideos = [newVideo, ...currentVideos];
-        setVideos(updatedVideos);
-        localStorage.setItem('shelby_videos_v2', JSON.stringify(updatedVideos));
+            const updatedVideos = [newVideo, ...currentVideos];
+            setVideos(updatedVideos);
+            localStorage.setItem('shelby_videos_v2', JSON.stringify(updatedVideos));
+        } catch (e) {
+            console.error("Storage error in addVideo:", e);
+            // Fallback: just add to current state
+            const updatedVideos = [newVideo, ...videos];
+            setVideos(updatedVideos);
+        }
     };
 
     const removeVideo = (blobName: string) => {
-        const currentStored = localStorage.getItem('shelby_videos_v2');
-        let currentVideos: VideoMetadata[] = currentStored ? JSON.parse(currentStored) : videos;
-        if (!Array.isArray(currentVideos)) currentVideos = DEFAULT_VIDEOS;
+        try {
+            const currentStored = localStorage.getItem('shelby_videos_v2');
+            let currentVideos: VideoMetadata[] = currentStored ? JSON.parse(currentStored) : videos;
+            if (!Array.isArray(currentVideos)) currentVideos = DEFAULT_VIDEOS;
 
-        const updatedVideos = currentVideos.filter(v => v.blobName !== blobName);
-        setVideos(updatedVideos);
-        localStorage.setItem('shelby_videos_v2', JSON.stringify(updatedVideos));
+            const updatedVideos = currentVideos.filter(v => v.blobName !== blobName);
+            setVideos(updatedVideos);
+            localStorage.setItem('shelby_videos_v2', JSON.stringify(updatedVideos));
+        } catch (e) {
+            console.error("Storage error in removeVideo:", e);
+            // Fallback: filter from current state
+            const updatedVideos = videos.filter(v => v.blobName !== blobName);
+            setVideos(updatedVideos);
+        }
     };
 
     return { videos, addVideo, removeVideo };

@@ -75,13 +75,13 @@ export const useUploadVideo = () => {
                 blobData: new Uint8Array(buffer),
             });
 
-            toast.success("Tải lên thành công!");
+            toast.success("Upload successful!");
             return { blobName, transactionHash: response.hash };
 
         } catch (error: any) {
-            console.error("Lỗi thực thi:", error);
+            console.error("Execution error:", error);
             // In chi tiết lỗi từ Simulation nếu có
-            const errorMsg = error.data?.message || error.message || "Giao dịch thất bại";
+            const errorMsg = error.data?.message || error.message || "Transaction failed";
             toast.error(errorMsg);
             throw error;
         } finally {

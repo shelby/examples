@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Shelby AI Image Generation Example",
-  description: "An AI image generation example using Shelby protocol",
+  title: "Shelby Streaming Video Example",
+  description: "A decentralized video streaming example with content gating using Shelby Protocol",
 };
 
 export default function RootLayout({
