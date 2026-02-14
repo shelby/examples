@@ -1,0 +1,33 @@
+{
+  "name": "@shelby-protocol/upmint-shelby",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "biome check .",
+    "fmt": "biome check . --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@aptos-labs/ts-sdk": "^5.2.1",
+    "@aptos-labs/wallet-adapter-react": "^7.2.8",
+    "@shelby-protocol/react": "^1.0.0",
+    "@shelby-protocol/sdk": "^0.1.0",
+    "@shelby-protocol/solana-kit": "^0.2.1",
+    "@solana/client": "^1.7.0",
+    "@solana/react-hooks": "^1.4.1",
+    "@tanstack/react-query": "^5.90.21",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "buffer": "^6.0.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  }
+}

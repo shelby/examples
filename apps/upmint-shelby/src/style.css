@@ -1,0 +1,546 @@
+:root {
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #0f172a;
+  background: linear-gradient(160deg, #0c0a14 0%, #1a1625 40%, #0f0d14 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: #e8e6ed;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Header */
+.header {
+  text-align: left;
+}
+
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin: 0 0 0.5rem;
+  background: linear-gradient(135deg, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.header p {
+  margin: 0;
+  max-width: 32rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.wallet-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wallet-address-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.75rem;
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  font-size: 0.85rem;
+  color: #c4b5fd;
+  cursor: pointer;
+}
+
+.wallet-address-btn:hover {
+  background: rgba(167, 139, 250, 0.25);
+}
+
+/* Cards */
+.card {
+  background: rgba(26, 22, 37, 0.85);
+  border-radius: 1rem;
+  padding: 1.5rem 1.4rem;
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  color: #f1eef7;
+}
+
+.card p {
+  margin: 0 0 1rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Connect */
+.connect-card {
+  text-align: center;
+  padding: 2.5rem;
+}
+
+.cta-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+}
+
+/* Collection settings */
+.collection-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-row label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"] {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(15, 12, 22, 0.6);
+  color: #e8e6ed;
+  font-size: 0.95rem;
+}
+
+.form-row input::placeholder {
+  color: #64748b;
+}
+
+.form-row-inline {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-transform: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #8b5cf6;
+}
+
+/* Upload zone */
+.upload-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  border: 2px dashed rgba(167, 139, 250, 0.35);
+  border-radius: 1rem;
+  background: rgba(139, 92, 246, 0.05);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.upload-zone:hover {
+  border-color: rgba(167, 139, 250, 0.6);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.file-input-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.upload-zone-text {
+  font-size: 0.95rem;
+  color: #a78bfa;
+}
+
+/* NFT Grid */
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.nft-card {
+  background: rgba(15, 12, 22, 0.7);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.nft-card-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.nft-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nft-card-info {
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nft-card-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #f1eef7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nft-explorer-link {
+  font-size: 0.75rem;
+  color: #a78bfa;
+}
+
+.nft-explorer-link:hover {
+  text-decoration: underline;
+}
+
+.nft-mint-btn {
+  margin: 0 0.9rem 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    opacity 0.15s;
+}
+
+.nft-mint-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.nft-mint-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.nft-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.mint-hint {
+  font-size: 0.7rem;
+  color: #64748b;
+  margin: 0 0.9rem 0.5rem;
+  display: block;
+}
+
+/* Messages */
+.error {
+  color: #fca5a5;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.success {
+  color: #86efac;
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.hint {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.empty-hint {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.explorer-link {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: #a78bfa;
+  margin-top: 0.5rem;
+}
+
+.explorer-link:hover {
+  text-decoration: underline;
+}
+
+.layout {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tabs */
+.app-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.app-tab {
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 12, 22, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #94a3b8;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.app-tab:hover {
+  border-color: rgba(148, 163, 184, 0.6);
+  color: #e5e7eb;
+}
+
+.app-tab.active {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border-color: transparent;
+  color: white;
+}
+
+/* Collections grid */
+.collections-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.collection-card {
+  padding: 1rem 1.1rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 12, 22, 0.6);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.collection-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.collection-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1eef7;
+}
+
+.collection-supply {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.15);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+}
+
+.collection-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.collection-creator {
+  font-family: ui-monospace, monospace;
+}
+
+.collection-price {
+  color: #86efac;
+}
+
+.collection-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.share-link,
+.share-btn {
+  font-size: 0.8rem;
+  color: #a78bfa;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+.share-link:hover,
+.share-btn:hover {
+  text-decoration: underline;
+}
+
+.select-coll-btn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  background: rgba(139, 92, 246, 0.3);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  color: #e8e6ed;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.select-coll-btn:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+.select-coll-btn.pay-btn {
+  background: rgba(34, 197, 94, 0.3);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.select-coll-btn.pay-btn:hover {
+  background: rgba(34, 197, 94, 0.5);
+}
+
+.add-collection-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-collection-form input {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(15, 12, 22, 0.6);
+  color: #e8e6ed;
+  font-size: 0.9rem;
+}
+
+.add-coll-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.add-coll-btn:hover {
+  opacity: 0.9;
+}
+
+button {
+  font-family: inherit;
+}
+
+@media (max-width: 640px) {
+  #app {
+    padding-inline: 1rem;
+  }
+
+  .nft-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .form-row-inline {
+    flex-direction: column;
+  }
+}
