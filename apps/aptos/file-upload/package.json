@@ -1,0 +1,42 @@
+{
+  "name": "aptos-file-upload",
+  "description": "Simple Aptos file upload to Shelby using @aptos-labs/wallet-adapter-react",
+  "keywords": [
+    "nextjs",
+    "react",
+    "aptos",
+    "shelby",
+    "tailwind",
+    "typescript"
+  ],
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "eslint",
+    "fmt": "prettier --write .",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@aptos-labs/ts-sdk": "^5.1.1",
+    "@aptos-labs/wallet-adapter-react": "^7.2.8",
+    "@shelby-protocol/react": "latest",
+    "@shelby-protocol/sdk": "latest",
+    "@tanstack/react-query": "^5.90.16",
+    "next": "16.0.10",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.10",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

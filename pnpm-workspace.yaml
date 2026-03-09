@@ -1,5 +1,6 @@
 packages:
   - apps/*
+  - apps/aptos/*
   - apps/solana/*
   - apps/ethereum/*
   - packages/*
