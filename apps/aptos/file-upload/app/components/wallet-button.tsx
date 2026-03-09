@@ -132,7 +132,7 @@ export function WalletButton() {
               </div>
 
               <div className="grid gap-3">
-                {wallets && wallets.length > 0 ? (
+                {wallets.length > 0 ? (
                   wallets.map((w) => (
                     <button
                       key={w.name}

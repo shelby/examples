@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@aptos-labs/ts-sdk": "^5.1.1",
-    "@aptos-labs/wallet-adapter-react": "^3.7.3",
+    "@aptos-labs/wallet-adapter-react": "^7.2.8",
     "@shelby-protocol/react": "latest",
     "@shelby-protocol/sdk": "latest",
     "@tanstack/react-query": "^5.90.16",
