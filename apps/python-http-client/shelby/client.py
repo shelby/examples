@@ -1,4 +1,4 @@
-"""
+﻿"""
 Shelby Protocol - Python HTTP Client
 A lightweight Python client for the Shelby decentralized hot storage network.
 
@@ -39,10 +39,11 @@ class BlobInfo:
     blob_name: str
     size: int
     upload_id: Optional[str] = None
+    base_url: str = SHELBYNET_BASE_URL
 
     @property
     def url(self) -> str:
-        return f"{SHELBYNET_BASE_URL}/v1/blobs/{self.account}/{self.blob_name}"
+        return f"{self.base_url}/v1/blobs/{self.account}/{self.blob_name}"
 
 
 class ShelbyError(Exception):
@@ -76,7 +77,7 @@ class ShelbyClient:
         resp = self.session.put(url, data=data, headers=headers, timeout=self.config.timeout)
         if resp.status_code not in (200, 204):
             raise ShelbyError(f"Upload failed: {resp.status_code} {resp.text}", status_code=resp.status_code)
-        return BlobInfo(account=account, blob_name=blob_name, size=len(data))
+        return BlobInfo(account=account, blob_name=blob_name, size=len(data), base_url=self.config.base_url)
 
     def upload_multipart(self, account: str, blob_name: str, data: bytes, part_size: int = DEFAULT_PART_SIZE, verbose: bool = False) -> BlobInfo:
         """Upload a large blob using multipart upload. Auto-chunks the data."""
@@ -92,7 +93,7 @@ class ShelbyClient:
         self._complete_multipart(upload_id)
         if verbose:
             print(f"[shelby] Multipart upload complete: {blob_name}")
-        return BlobInfo(account=account, blob_name=blob_name, size=len(data), upload_id=upload_id)
+        return BlobInfo(account=account, blob_name=blob_name, size=len(data), upload_id=upload_id, base_url=self.config.base_url)
 
     def _start_multipart(self, account: str, blob_name: str, part_size: int) -> str:
         url = f"{self.config.base_url}/v1/multipart-uploads"
