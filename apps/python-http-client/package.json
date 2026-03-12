@@ -1,0 +1,6 @@
+{
+  "name": "@shelby-protocol/python-http-client",
+  "version": "0.1.0",
+  "description": "Python HTTP client example for the Shelby Protocol RPC API",
+  "private": true
+}
