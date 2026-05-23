@@ -47,6 +47,9 @@ interface Drop {
   downloads: number;
 }
 
+// Simple async mutex to prevent concurrent drops.json writes
+let dbWriteLock: Promise<void> = Promise.resolve();
+
 function loadDB(): Record<string, Drop> {
   if (!fs.existsSync(DB_PATH)) return {};
   return JSON.parse(fs.readFileSync(DB_PATH, "utf8")) as Record<string, Drop>;
@@ -56,7 +59,15 @@ function saveDB(db: Record<string, Drop>): void {
   fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
 }
 
-// Sanitize filename for Content-Disposition header to prevent header injection
+function updateDB(fn: (db: Record<string, Drop>) => void): Promise<void> {
+  dbWriteLock = dbWriteLock.then(() => {
+    const db = loadDB();
+    fn(db);
+    saveDB(db);
+  });
+  return dbWriteLock;
+}
+
 function sanitizeFilename(name: string): string {
   return name.replace(/[^\w.\-]/g, "_");
 }
@@ -68,6 +79,11 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(import.meta.dirname, "..", "public")));
+
+// Serve the download page for shareable drop links
+app.get("/d/:id", (_req, res) => {
+  res.sendFile(path.join(import.meta.dirname, "..", "public", "index.html"));
+});
 
 app.post("/upload", upload.single("file"), async (req, res) => {
   if (!req.file) {
@@ -104,9 +120,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       downloads: 0,
     };
 
-    const db = loadDB();
-    db[id] = drop;
-    saveDB(db);
+    await updateDB((db) => { db[id] = drop; });
 
     console.log(`✓ Uploaded ${originalname} → ${blobName}`);
     res.json({ success: true, id, sha256, expiresAt: drop.expiresAt });
@@ -135,7 +149,6 @@ app.get("/drop/:id/download", async (req, res) => {
     return;
   }
 
-  // Sanitize filename to prevent Content-Disposition header injection
   const safeFileName = sanitizeFilename(drop.fileName);
 
   try {
@@ -144,20 +157,16 @@ app.get("/drop/:id/download", async (req, res) => {
       blobName: drop.blobName,
     });
 
-    // Set headers BEFORE starting the stream
     res.setHeader("Content-Disposition", `attachment; filename="${safeFileName}"`);
     res.setHeader("Content-Type", "application/octet-stream");
 
-    // Update download count
-    db[drop.id].downloads += 1;
-    saveDB(db);
+    await updateDB((db) => { db[drop.id].downloads += 1; });
 
     await pipeline(
       Readable.fromWeb(readable as ReadableStream<Uint8Array>),
       res,
     );
   } catch (err) {
-    // Only send error response if headers haven't been sent yet
     if (!res.headersSent) {
       console.error("Download error:", err);
       res.status(500).json({ error: "Download failed" });
