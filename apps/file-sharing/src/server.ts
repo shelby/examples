@@ -56,6 +56,11 @@ function saveDB(db: Record<string, Drop>): void {
   fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
 }
 
+// Sanitize filename for Content-Disposition header to prevent header injection
+function sanitizeFilename(name: string): string {
+  return name.replace(/[^\w.\-]/g, "_");
+}
+
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 const upload = multer({ dest: UPLOAD_DIR });
@@ -130,25 +135,33 @@ app.get("/drop/:id/download", async (req, res) => {
     return;
   }
 
+  // Sanitize filename to prevent Content-Disposition header injection
+  const safeFileName = sanitizeFilename(drop.fileName);
+
   try {
     const { readable } = await client.download({
       account: accountAddress,
       blobName: drop.blobName,
     });
 
+    // Set headers BEFORE starting the stream
+    res.setHeader("Content-Disposition", `attachment; filename="${safeFileName}"`);
+    res.setHeader("Content-Type", "application/octet-stream");
+
+    // Update download count
     db[drop.id].downloads += 1;
     saveDB(db);
-
-    res.setHeader("Content-Disposition", `attachment; filename="${drop.fileName}"`);
-    res.setHeader("Content-Type", "application/octet-stream");
 
     await pipeline(
       Readable.fromWeb(readable as ReadableStream<Uint8Array>),
       res,
     );
   } catch (err) {
-    console.error("Download error:", err);
-    res.status(500).json({ error: "Download failed" });
+    // Only send error response if headers haven't been sent yet
+    if (!res.headersSent) {
+      console.error("Download error:", err);
+      res.status(500).json({ error: "Download failed" });
+    }
   }
 });
 
