@@ -1,0 +1,38 @@
+{
+  "name": "@shelby-protocol/file-sharing-example",
+  "version": "1.0.0",
+  "description": "An example app demonstrating decentralized file sharing with shareable download links using the Shelby SDK",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --env-file=.env src/server.ts",
+    "lint": "biome check .",
+    "fmt": "biome check . --write"
+  },
+  "keywords": [
+    "shelby",
+    "sdk",
+    "blob",
+    "storage",
+    "file-sharing"
+  ],
+  "author": "erhnysr",
+  "license": "MIT",
+  "dependencies": {
+    "@aptos-labs/ts-sdk": "^5.1.1",
+    "@shelby-protocol/sdk": "latest",
+    "express": "^4.21.2",
+    "multer": "^2.0.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "@types/express": "^5.0.3",
+    "@types/multer": "^1.4.12",
+    "@types/uuid": "^10.0.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
