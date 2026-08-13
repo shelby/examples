@@ -1,5 +1,6 @@
 {
   "name": "@shelby-examples/ethereum-file-upload",
+  "description": "Simple Ethereum file upload to Shelby using wagmi and RainbowKit",
   "private": true,
   "version": "0.0.0",
   "scripts": {
