@@ -31,7 +31,10 @@ This Turborepo includes the following example applications:
 | `@shelby-protocol/ai-image-generation` | Shelby AI image generation example | [`apps/ai-image-generation`](./apps/ai-image-generation) |
 | `@shelby-protocol/cross-chain-accounts` | Shelby cross chain accounts example | [`apps/cross-chain-accounts`](./apps/cross-chain-accounts) |
 | `@shelby-protocol/download-example` | An example app to demonstrate downloading blobs using the Shelby SDK | [`apps/download-blob`](./apps/download-blob) |
+| `@shelby-examples/ethereum-file-upload` | Simple Ethereum file upload to Shelby using wagmi and RainbowKit | [`apps/ethereum/file-upload`](./apps/ethereum/file-upload) |
 | `@shelby-protocol/list-example` | An example app to demonstrate listing blobs using the Shelby SDK | [`apps/list-blob`](./apps/list-blob) |
+| `solana-file-upload` | Simple Solana file upload to Shelby using @solana/react-hooks | [`apps/solana/file-upload`](./apps/solana/file-upload) |
+| `token-gated` | Next.js, Tailwind, @solana/react-hooks, Anchor vault program | [`apps/solana/token-gated`](./apps/solana/token-gated) |
 | `@shelby-protocol/upload-example` | An example app to demonstrate uploading blobs using the Shelby SDK | [`apps/upload-blob`](./apps/upload-blob) |
 
 <!-- APPS_TABLE_END -->
