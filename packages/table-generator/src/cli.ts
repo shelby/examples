@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import { updateAppsTable } from "./index.js";
 
 /**
@@ -85,8 +86,11 @@ function main() {
   }
 }
 
-// Run if this script is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Run if this script is executed directly.
+// process.argv[1] is a filesystem path, so it has to be converted to a file
+// URL before comparing: interpolating it directly never matches on Windows,
+// nor on any path that needs percent-encoding.
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     main();
   } catch (error) {
